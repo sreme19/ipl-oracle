@@ -48,9 +48,9 @@ class NarratorAgent:
     def __init__(self, model: str = "claude-3-5-sonnet-20241022", max_tokens: int = 1200):
         self.model = model
         self.max_tokens = max_tokens
-        self._client: "Anthropic | None" = None
+        self._client: Anthropic | None = None
 
-    def _get_client(self) -> "Anthropic":
+    def _get_client(self) -> Anthropic:
         if self._client is not None:
             return self._client
         if Anthropic is None:

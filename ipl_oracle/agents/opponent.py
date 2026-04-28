@@ -58,6 +58,7 @@ class OpponentSelector:
             solve_time_ms=result.solve_time_ms,
             excluded=result.excluded,
             slot_reasons={p.player_id: "predicted by form + venue fit" for p in result.selected},
+            note=result.relaxation_reason if result.relaxed else None,
         )
 
     @staticmethod

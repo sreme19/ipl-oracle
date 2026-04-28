@@ -112,12 +112,163 @@ def _render(result, json_out: bool, no_narrative: bool) -> None:
         )
     )
 
+    notes = []
+    if result.own_xi.note:
+        notes.append(f"[bold]{result.own_team} XI:[/bold] {result.own_xi.note}")
+    if result.opponent_forecast.predicted_xi.note:
+        notes.append(
+            f"[bold]{result.opponent_team} XI:[/bold] {result.opponent_forecast.predicted_xi.note}"
+        )
+    if notes:
+        console.print(Panel("\n".join(notes), title="[yellow]Constraint warnings[/yellow]"))
+
     if not no_narrative and result.narrative:
         console.print(Panel(result.narrative, title="Brief"))
 
     if json_out:
         sys.stdout.write(result.model_dump_json(indent=2))
         sys.stdout.write("\n")
+
+
+@app.command()
+def retro(
+    team: str = typer.Option(..., "--team", "-t", help="Team code (e.g. DC, RCB)"),
+    opponent: str | None = typer.Option(None, "--opponent", "-o"),
+    venue: str | None = typer.Option(None, "--venue", "-v"),
+    match_date: str | None = typer.Option(None, "--match-date", "-d"),
+    actual_toss: str = typer.Option(..., "--actual-toss", help="What our team actually chose: bat | bowl"),
+    won: bool = typer.Option(False, "--won/--lost", help="Did our team win?"),
+    runs_for: int | None = typer.Option(None, "--runs-for", help="Runs we scored (optional)"),
+    runs_against: int | None = typer.Option(None, "--runs-against", help="Runs we conceded (optional)"),
+    sample_size: int = typer.Option(10000, "--sample-size"),
+    log_calibration: bool = typer.Option(
+        True, "--log-calibration/--no-log-calibration",
+        help="Append (predicted, actual) to the calibration store",
+    ),
+    data_dir: str | None = typer.Option(None, "--data-dir"),
+):
+    """Compare what the oracle would have recommended against the actual result."""
+    if actual_toss not in ("bat", "bowl"):
+        console.print("[red]error:[/red] --actual-toss must be 'bat' or 'bowl'")
+        raise typer.Exit(1)
+
+    loader = DataLoader(data_dir)
+    state = StateStore()
+    orch = Orchestrator(loader=loader, state=state, narrator=None)
+    request = OracleRequest(
+        team=team,
+        opponent=opponent,
+        venue=venue,
+        match_date=_parse_date(match_date),
+        sample_size=sample_size,
+    )
+    try:
+        result = orch.run(request)
+    except Exception as exc:  # noqa: BLE001
+        console.print(f"[red]error:[/red] {exc}")
+        raise typer.Exit(1) from exc
+
+    fx = result.fixture
+    wp = result.win_probability
+    toss = result.toss
+    actual_wp = 1.0 if won else 0.0
+    delta_pp = (wp.win_probability - actual_wp) * 100.0
+
+    console.print(
+        Panel(
+            f"[bold]{fx.home_team}[/bold] vs [bold]{fx.away_team}[/bold]  "
+            f"@ {fx.venue}  ({fx.match_date.isoformat()})\n"
+            f"Perspective: [bold]{result.own_team}[/bold]",
+            title="Retrospective",
+        )
+    )
+
+    table = Table(title="Predicted vs Actual")
+    table.add_column("Metric")
+    table.add_column("Predicted")
+    table.add_column("Actual")
+    table.add_column("Delta")
+    table.add_row(
+        "Outcome",
+        f"win-prob {wp.win_probability:.1%}",
+        "Won" if won else "Lost",
+        f"{delta_pp:+.1f} pp"
+        if won == (wp.win_probability >= 0.5)
+        else f"[red]{delta_pp:+.1f} pp[/red]",
+    )
+    if runs_for is not None:
+        if actual_toss == "bat":
+            pred = wp.expected_runs
+        else:
+            pred = result.opponent_forecast.expected_score
+        table.add_row(
+            "Runs (us)",
+            f"{pred:.0f}",
+            str(runs_for),
+            f"{runs_for - pred:+.0f}",
+        )
+    if runs_against is not None:
+        if actual_toss == "bat":
+            pred = result.opponent_forecast.expected_score
+        else:
+            pred = wp.expected_runs
+        table.add_row(
+            "Runs (them)",
+            f"{pred:.0f}",
+            str(runs_against),
+            f"{runs_against - pred:+.0f}",
+        )
+    table.add_row(
+        "Toss",
+        toss.decision,
+        actual_toss,
+        "[green]matched[/green]" if toss.decision == actual_toss else "[red]mismatched[/red]",
+    )
+    console.print(table)
+
+    diagnostics: list[str] = []
+    if toss.decision != actual_toss:
+        gap = abs(toss.win_prob_batting_first - toss.win_prob_bowling_first) * 100.0
+        diagnostics.append(
+            f"⚠ Toss mismatch — model preferred '{toss.decision}' "
+            f"(set {toss.win_prob_batting_first:.1%} vs chase {toss.win_prob_bowling_first:.1%}, "
+            f"gap {gap:.1f} pp). Choosing the other side likely cost win probability."
+        )
+    if won and wp.win_probability < 0.5:
+        diagnostics.append(
+            f"✓ Upset win — model gave only {wp.win_probability:.1%}. "
+            "Calibration store will pull future predictions toward this outcome."
+        )
+    elif not won and wp.win_probability > 0.5:
+        diagnostics.append(
+            f"✗ Model overestimated — predicted {wp.win_probability:.1%} but lost. "
+            f"Inspect: opponent score forecast was {result.opponent_forecast.expected_score:.0f}, "
+            f"par {result.conditions.par_score:.0f}."
+        )
+    if runs_against is not None:
+        opp_pred = result.opponent_forecast.expected_score
+        if runs_against > opp_pred + 25:
+            diagnostics.append(
+                f"✗ Conceded {runs_against - opp_pred:+.0f} above forecast — phase strategy miss. "
+                f"Weakest opponent batting phase was '{min(result.opponent_forecast.batting_phase_strengths, key=result.opponent_forecast.batting_phase_strengths.get)}'; "
+                "if you bowled medium-pace there instead of attacking, that's the leak."
+            )
+    if result.own_xi.note:
+        diagnostics.append(f"⚠ Own XI constraint warning: {result.own_xi.note}")
+    if result.opponent_forecast.predicted_xi.note:
+        diagnostics.append(
+            f"⚠ Opponent XI constraint warning: {result.opponent_forecast.predicted_xi.note}"
+        )
+
+    if diagnostics:
+        console.print(Panel("\n\n".join(diagnostics), title="Diagnostics"))
+
+    if log_calibration:
+        state.add_calibration_point(wp.win_probability, actual_wp)
+        console.print(
+            f"[dim]Calibration point logged: predicted={wp.win_probability:.3f}, "
+            f"actual={actual_wp:.0f}[/dim]"
+        )
 
 
 @app.command()

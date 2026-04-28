@@ -93,6 +93,7 @@ class XIOptimization(BaseModel):
     solve_time_ms: float
     excluded: list[Player] = Field(default_factory=list)
     slot_reasons: dict[str, str] = Field(default_factory=dict)
+    note: str | None = None
 
 
 class OpponentForecast(BaseModel):

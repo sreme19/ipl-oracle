@@ -123,6 +123,12 @@ ipl-oracle squad RCB
 # Emit a LinkedIn-style post (deterministic, no LLM key required)
 ipl-oracle linkedin --team RCB
 ipl-oracle run --team RCB --no-narrative --linkedin
+
+# Retrospective: compare what the oracle would have recommended against
+# the actual scorecard. Logs (predicted, actual) to the calibration store.
+ipl-oracle retro --team DC --opponent RCB \
+    --venue "Arun Jaitley Stadium" --match-date 2026-04-27 \
+    --actual-toss bowl --lost --runs-for 138 --runs-against 215
 ```
 
 Sample output (truncated):
