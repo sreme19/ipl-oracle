@@ -11,6 +11,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
+from .agents.linkedin import LinkedInAgent
 from .agents.narrator import NarratorAgent
 from .io import DataLoader, StateStore
 from .orchestrator import Orchestrator
@@ -38,6 +39,7 @@ def run(
     sample_size: int = typer.Option(10000, "--sample-size", help="Monte Carlo rollouts"),
     json_out: bool = typer.Option(False, "--json", help="Emit full JSON trace alongside narrative"),
     no_narrative: bool = typer.Option(False, "--no-narrative", help="Skip the Anthropic call"),
+    linkedin: bool = typer.Option(False, "--linkedin", help="Also emit a LinkedIn-style post"),
     data_dir: str | None = typer.Option(None, "--data-dir", help="Override data directory"),
 ):
     """Run the multi-agent pipeline and print a natural-language verdict."""
@@ -63,6 +65,10 @@ def run(
         raise typer.Exit(1) from exc
 
     _render(result, json_out=json_out, no_narrative=no_narrative)
+
+    if linkedin:
+        post = LinkedInAgent().compose(result)
+        console.print(Panel(post, title="LinkedIn post"))
 
 
 def _render(result, json_out: bool, no_narrative: bool) -> None:
@@ -112,6 +118,38 @@ def _render(result, json_out: bool, no_narrative: bool) -> None:
     if json_out:
         sys.stdout.write(result.model_dump_json(indent=2))
         sys.stdout.write("\n")
+
+
+@app.command()
+def linkedin(
+    team: str = typer.Option(..., "--team", "-t", help="Team code (e.g. RCB, PBKS, MI)"),
+    opponent: str | None = typer.Option(None, "--opponent", "-o"),
+    venue: str | None = typer.Option(None, "--venue", "-v"),
+    match_date: str | None = typer.Option(None, "--match-date", "-d"),
+    sample_size: int = typer.Option(10000, "--sample-size"),
+    repo_url: str | None = typer.Option(None, "--repo-url", help="Override the repo link in the post"),
+    data_dir: str | None = typer.Option(None, "--data-dir"),
+):
+    """Run the pipeline and emit a LinkedIn-style post to stdout."""
+    loader = DataLoader(data_dir)
+    state = StateStore()
+    orch = Orchestrator(loader=loader, state=state, narrator=None)
+    request = OracleRequest(
+        team=team,
+        opponent=opponent,
+        venue=venue,
+        match_date=_parse_date(match_date),
+        sample_size=sample_size,
+    )
+    try:
+        result = orch.run(request)
+    except Exception as exc:  # noqa: BLE001
+        console.print(f"[red]error:[/red] {exc}")
+        raise typer.Exit(1) from exc
+
+    agent = LinkedInAgent(repo_url=repo_url) if repo_url else LinkedInAgent()
+    sys.stdout.write(agent.compose(result))
+    sys.stdout.write("\n")
 
 
 @app.command()
