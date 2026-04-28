@@ -54,8 +54,42 @@ Ten agents, each typed:
   Wilson confidence interval.
 - Platt scaling (`sklearn.linear_model.LogisticRegression`) — calibrates
   raw MC probabilities once you've logged real outcomes.
-- Bipartite max-weight matching (NetworkX) — constructs threat edges
-  between our batters and opponent bowlers.
+- Bipartite weighted matching — constructs threat edges between our
+  batters and opponent bowlers.
+
+## Technology
+
+**Language & runtime**
+- Python 3.10–3.12
+
+**Core libraries**
+- `pydantic` — typed contracts between agents
+- `typer` + `rich` — CLI parsing and terminal rendering
+- `numpy` / `scipy` — numerical core; vectorised Monte Carlo and Wilson CI
+- `PuLP` (CBC backend) — mixed-integer linear programming solver
+- `scikit-learn` — Platt scaling via `LogisticRegression`
+- `anthropic` — Claude SDK for the Narrator agent
+
+**Algorithms**
+- Mixed-integer linear programming (PuLP/CBC) — prescriptive XI selection
+- Bertsimas–Sim Γ-robust counterpart — opponent-XI uncertainty
+- Normal-Normal Bayesian form posterior + Thompson sampling
+- Markov Decision Process value iteration — exact chase win-probability grid
+- Vectorised Monte Carlo with Wilson confidence interval
+- Platt scaling — calibrates raw MC probabilities once outcomes are logged
+- Bipartite weighted matching — batter × bowler threat graph
+
+**Storage**
+- SQLite (`~/.ipl-oracle/state.db`) — EWM form scores and the calibration log
+
+**Quality & CI**
+- `pytest` — covers MILP, optimisation primitives, orchestrator end-to-end, LinkedIn agent
+- `ruff` — lint + import order
+- GitHub Actions — runs `pytest` and `ruff check` on every push and PR
+
+**Development environment**
+- Built with [Claude Code](https://claude.com/claude-code) and [Windsurf](https://windsurf.com)
+- macOS / Linux / WSL on Windows
 
 ## Install
 
