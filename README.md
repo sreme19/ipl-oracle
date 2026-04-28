@@ -25,7 +25,7 @@ Fixture ─► Conditions ─► Scout(×2) ─► OpponentSelector ─► Oppon
                                                             Narrator ──► text
 ```
 
-Nine agents, each typed:
+Ten agents, each typed:
 
 | Agent | Job |
 | --- | --- |
@@ -38,6 +38,7 @@ Nine agents, each typed:
 | `SelectorAgent` | Prescriptive MILP — picks our XI to maximise matchup-aware objective. |
 | `SimulatorAgent` | 10k Monte Carlo + MDP value iteration; emits win prob and toss recommendation. |
 | `NarratorAgent` | Anthropic Claude — writes the natural-language brief from the trace. |
+| `LinkedInAgent` | Deterministic templating — turns the trace into a shareable LinkedIn post. |
 
 ## Optimization techniques
 
@@ -84,6 +85,10 @@ ipl-oracle run --team RCB --must-include rcb_kohli --must-exclude rcb_maxwell
 # Inspect data
 ipl-oracle fixtures --team RCB
 ipl-oracle squad RCB
+
+# Emit a LinkedIn-style post (deterministic, no LLM key required)
+ipl-oracle linkedin --team RCB
+ipl-oracle run --team RCB --no-narrative --linkedin
 ```
 
 Sample output (truncated):
