@@ -1,0 +1,144 @@
+{
+  "venues": [
+    {
+      "name": "M Chinnaswamy Stadium",
+      "city": "Bengaluru",
+      "boundary_straight_m": 67.0,
+      "boundary_square_m": 60.0,
+      "par_first_innings": 195.0,
+      "chasing_win_rate": 0.55,
+      "dew_factor": 0.6,
+      "pitch_type": "batting"
+    },
+    {
+      "name": "Punjab Cricket Association IS Bindra Stadium",
+      "city": "Mohali",
+      "boundary_straight_m": 70.0,
+      "boundary_square_m": 64.0,
+      "par_first_innings": 185.0,
+      "chasing_win_rate": 0.52,
+      "dew_factor": 0.4,
+      "pitch_type": "batting"
+    },
+    {
+      "name": "Wankhede Stadium",
+      "city": "Mumbai",
+      "boundary_straight_m": 72.0,
+      "boundary_square_m": 63.0,
+      "par_first_innings": 175.0,
+      "chasing_win_rate": 0.58,
+      "dew_factor": 0.55,
+      "pitch_type": "batting"
+    },
+    {
+      "name": "MA Chidambaram Stadium",
+      "city": "Chennai",
+      "boundary_straight_m": 75.0,
+      "boundary_square_m": 65.0,
+      "par_first_innings": 165.0,
+      "chasing_win_rate": 0.42,
+      "dew_factor": 0.35,
+      "pitch_type": "spin"
+    },
+    {
+      "name": "Eden Gardens",
+      "city": "Kolkata",
+      "boundary_straight_m": 77.0,
+      "boundary_square_m": 68.0,
+      "par_first_innings": 175.0,
+      "chasing_win_rate": 0.48,
+      "dew_factor": 0.5,
+      "pitch_type": "neutral"
+    },
+    {
+      "name": "Arun Jaitley Stadium",
+      "city": "Delhi",
+      "boundary_straight_m": 70.0,
+      "boundary_square_m": 64.0,
+      "par_first_innings": 175.0,
+      "chasing_win_rate": 0.5,
+      "dew_factor": 0.3,
+      "pitch_type": "neutral"
+    },
+    {
+      "name": "Sawai Mansingh Stadium",
+      "city": "Jaipur",
+      "boundary_straight_m": 75.0,
+      "boundary_square_m": 65.0,
+      "par_first_innings": 170.0,
+      "chasing_win_rate": 0.48,
+      "dew_factor": 0.3,
+      "pitch_type": "neutral"
+    },
+    {
+      "name": "Rajiv Gandhi International Stadium",
+      "city": "Hyderabad",
+      "boundary_straight_m": 75.0,
+      "boundary_square_m": 65.0,
+      "par_first_innings": 180.0,
+      "chasing_win_rate": 0.52,
+      "dew_factor": 0.5,
+      "pitch_type": "neutral"
+    },
+    {
+      "name": "Narendra Modi Stadium",
+      "city": "Ahmedabad",
+      "boundary_straight_m": 78.0,
+      "boundary_square_m": 68.0,
+      "par_first_innings": 175.0,
+      "chasing_win_rate": 0.5,
+      "dew_factor": 0.4,
+      "pitch_type": "neutral"
+    },
+    {
+      "name": "BRSABV Ekana Cricket Stadium",
+      "city": "Lucknow",
+      "boundary_straight_m": 75.0,
+      "boundary_square_m": 65.0,
+      "par_first_innings": 165.0,
+      "chasing_win_rate": 0.45,
+      "dew_factor": 0.4,
+      "pitch_type": "bowling"
+    },
+    {
+      "name": "Barsapara Cricket Stadium",
+      "city": "Guwahati",
+      "boundary_straight_m": 74.0,
+      "boundary_square_m": 66.0,
+      "par_first_innings": 170.0,
+      "chasing_win_rate": 0.50,
+      "dew_factor": 0.55,
+      "pitch_type": "batting"
+    },
+    {
+      "name": "Maharaja Yadavindra Singh International Cricket Stadium",
+      "city": "Mullanpur",
+      "boundary_straight_m": 71.0,
+      "boundary_square_m": 65.0,
+      "par_first_innings": 180.0,
+      "chasing_win_rate": 0.52,
+      "dew_factor": 0.35,
+      "pitch_type": "batting"
+    },
+    {
+      "name": "HPCA Stadium",
+      "city": "Dharamsala",
+      "boundary_straight_m": 68.0,
+      "boundary_square_m": 62.0,
+      "par_first_innings": 180.0,
+      "chasing_win_rate": 0.52,
+      "dew_factor": 0.2,
+      "pitch_type": "batting"
+    },
+    {
+      "name": "Shaheed Veer Narayan Singh International Cricket Stadium",
+      "city": "Raipur",
+      "boundary_straight_m": 74.0,
+      "boundary_square_m": 66.0,
+      "par_first_innings": 170.0,
+      "chasing_win_rate": 0.50,
+      "dew_factor": 0.35,
+      "pitch_type": "neutral"
+    }
+  ]
+}

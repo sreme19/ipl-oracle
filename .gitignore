@@ -1,0 +1,27 @@
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.env
+.env.local
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.db
+*.sqlite
+.DS_Store
+data/cache/
+
+# Re-include things the parent IPL-kiro repo .gitignore blocks but that
+# this project legitimately ships.
+!ipl_oracle/data/
+!ipl_oracle/data/**
+!data/
+!data/**
+!pyproject.toml
