@@ -96,6 +96,7 @@ class SelectorAgent:
             solve_time_ms=result.solve_time_ms,
             excluded=result.excluded,
             slot_reasons=slot_reasons,
+            note=result.relaxation_reason if result.relaxed else None,
         )
 
     @staticmethod
