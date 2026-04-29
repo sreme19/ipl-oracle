@@ -37,6 +37,7 @@ Ten agents, each typed:
 | `StrategistAgent` | Meta-agent: picks deterministic / robust / Bayesian MILP based on uncertainty. |
 | `SelectorAgent` | Prescriptive MILP — picks our XI to maximise matchup-aware objective. |
 | `SimulatorAgent` | 10k Monte Carlo + MDP value iteration; emits win prob and toss recommendation. |
+| MC Feedback Loop | Iteratively swaps marginal picks for bench alternatives and adopts any swap that lifts win probability by >0.5% (up to 5 rounds at 2k samples each). |
 | `NarratorAgent` | Anthropic Claude — writes the natural-language brief from the trace. |
 | `LinkedInAgent` | Deterministic templating — turns the trace into a shareable LinkedIn post. |
 
@@ -52,6 +53,10 @@ Ten agents, each typed:
   on a (overs, wickets, runs-needed) grid; complements Monte Carlo.
 - Vectorised Monte Carlo — 10 000 ball-by-ball rollouts per innings,
   Wilson confidence interval.
+- MC feedback loop — post-MILP swap search: tries replacing the 3
+  weakest selected players with same-role bench alternatives (2k MC
+  samples per candidate, δ=0.5% threshold, max 5 rounds) to close the
+  gap between the MILP proxy objective and actual win probability.
 - Platt scaling (`sklearn.linear_model.LogisticRegression`) — calibrates
   raw MC probabilities once you've logged real outcomes.
 - Bipartite weighted matching — constructs threat edges between our
@@ -80,7 +85,7 @@ Ten agents, each typed:
 - Bipartite weighted matching — batter × bowler threat graph
 
 **Storage**
-- SQLite (`~/.ipl-oracle/state.db`) — EWM form scores and the calibration log
+- SQLite (`~/.ipl-oracle/state.db`) — EWM form scores, calibration log, and full eval run history
 
 **Quality & CI**
 - `pytest` — covers MILP, optimisation primitives, orchestrator end-to-end, LinkedIn agent
@@ -129,6 +134,13 @@ ipl-oracle run --team RCB --no-narrative --linkedin
 ipl-oracle retro --team DC --opponent RCB \
     --venue "Arun Jaitley Stadium" --match-date 2026-04-27 \
     --actual-toss bowl --lost --runs-for 138 --runs-against 215
+
+# Review past runs (strategy mode, win prob, CI width, MC feedback delta)
+ipl-oracle history --team RCB --last 20
+
+# After a match: record the actual result to improve Platt calibration
+ipl-oracle record-outcome <run-id> --won
+ipl-oracle record-outcome <run-id> --lost
 ```
 
 Sample output (truncated):
@@ -164,10 +176,17 @@ is hand-maintained from the IPL website and should be updated each season.
 
 ## State
 
-`ipl-oracle` writes a small SQLite file (`~/.ipl-oracle/state.db` by default)
-to track exponentially-weighted form scores and a calibration log of
-predicted-vs-actual win probabilities. Override with the
-`IPL_ORACLE_STATE_DB` environment variable.
+`ipl-oracle` writes a SQLite file (`~/.ipl-oracle/state.db` by default) with three tables:
+
+| Table | Contents |
+| --- | --- |
+| `form` | EWM-decayed form score and variance per player, updated each run |
+| `calibration` | `(predicted, actual)` pairs used to fit the Platt scaler |
+| `runs` | Full eval snapshot per run: strategy mode, win probability, CI width, toss decision, MC feedback rounds/delta, and whether an actual outcome was recorded |
+
+Override the database path with the `IPL_ORACLE_STATE_DB` environment variable.
+
+Each run prints its `run_id` at the bottom of the output. After the match is played, feed the result back with `ipl-oracle record-outcome <run-id> --won/--lost` — this writes to the calibration table so the Platt scaler improves on the next run.
 
 ## Tests
 
