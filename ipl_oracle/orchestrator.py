@@ -10,7 +10,16 @@ from .agents.selector import SelectorAgent
 from .agents.simulator import SimulatorAgent
 from .agents.strategist import StrategistAgent
 from .io import DataLoader, StateStore
-from .schemas import OracleRequest, OracleResult
+from .optimization.bayesian import Posterior
+from .schemas import (
+    ConditionsVector,
+    OracleRequest,
+    OracleResult,
+    Player,
+    TossDecision,
+    WinProbability,
+    XIOptimization,
+)
 
 
 class Orchestrator:
@@ -62,13 +71,27 @@ class Orchestrator:
             must_exclude=request.must_exclude,
         )
 
-        # Refinement loop: if MC CI is too wide, re-run selector with tighter robust Γ.
+        # Initial simulation.
         win_prob, toss = self.simulator_agent.simulate(
             own_xi=own_xi,
             opponent=forecast,
             conditions=conditions,
             sample_size=request.sample_size,
         )
+
+        # MC feedback loop: try marginal player swaps, adopt those that improve win prob.
+        own_xi, win_prob, toss, fb_rounds, fb_delta = self._mc_feedback_loop(
+            own_posteriors=own_posteriors,
+            conditions=conditions,
+            forecast=forecast,
+            current_xi=own_xi,
+            current_win_prob=win_prob,
+            current_toss=toss,
+            must_include=request.must_include,
+            sample_size=request.sample_size,
+        )
+
+        # CI-width loop: if estimate is still too uncertain, tighten robust Γ and re-select.
         ci_width = win_prob.confidence_interval[1] - win_prob.confidence_interval[0]
         refinement_attempts = 0
         while ci_width > 0.18 and refinement_attempts < 3:
@@ -112,6 +135,10 @@ class Orchestrator:
                     "opponent_uncertainty": decision.opponent_uncertainty,
                     "refinement_attempts": refinement_attempts,
                 },
+                "mc_feedback": {
+                    "rounds": fb_rounds,
+                    "win_prob_delta": round(fb_delta, 4),
+                },
             },
         )
 
@@ -119,7 +146,130 @@ class Orchestrator:
         if self.state is not None:
             run_id = self.state.log_run(partial)
 
+
         narrative = ""
         if self.narrator is not None:
             narrative = self.narrator.narrate(build_trace(partial))
         return partial.model_copy(update={"narrative": narrative, "run_id": run_id})
+
+    # ------------------------------------------------------------------ MC feedback loop
+
+    def _mc_feedback_loop(
+        self,
+        own_posteriors: dict[str, Posterior],
+        conditions: ConditionsVector,
+        forecast,
+        current_xi: XIOptimization,
+        current_win_prob: WinProbability,
+        current_toss: TossDecision,
+        must_include: list[str],
+        sample_size: int,
+    ) -> tuple[XIOptimization, WinProbability, TossDecision, int, float]:
+        """Swap marginal players to improve win probability.
+
+        Tries replacing the bottom-3 MILP-scored players with same-role bench
+        players. Adopts any swap that lifts win prob by > 0.5%. Repeats up to
+        5 rounds. Candidates are simulated at 2k samples; the winner is
+        re-simulated at full sample_size before being returned.
+        """
+        _DELTA = 0.005       # minimum meaningful improvement
+        _MAX_ROUNDS = 5
+        _SWAP_SAMPLES = 2000
+
+        must_include_ids = set(must_include or [])
+        best_xi = current_xi
+        best_prob = current_win_prob.win_probability
+        total_delta = 0.0
+        rounds_run = 0
+        any_swap = False
+
+        for _ in range(_MAX_ROUNDS):
+            # Identify swappable selected players and rank by proxy score ascending.
+            swappable = [
+                p for p in best_xi.selected_xi
+                if p.player_id not in must_include_ids
+            ]
+            if not swappable:
+                break
+
+            marginal = sorted(
+                swappable,
+                key=lambda p: self._proxy_score(p, conditions, own_posteriors),
+            )[:3]
+
+            selected_ids = {p.player_id for p in best_xi.selected_xi}
+            bench = [p for p in best_xi.excluded if p.player_id not in selected_ids]
+
+            candidates = [
+                (out_p, in_p)
+                for out_p in marginal
+                for in_p in bench
+                if in_p.role == out_p.role
+            ]
+            if not candidates:
+                break
+
+            round_best_xi: XIOptimization | None = None
+            round_best_prob = best_prob
+
+            for out_p, in_p in candidates:
+                candidate_xi = self._swap_xi(best_xi, out_p, in_p)
+                cand_wp, _ = self.simulator_agent.simulate(
+                    own_xi=candidate_xi,
+                    opponent=forecast,
+                    conditions=conditions,
+                    sample_size=_SWAP_SAMPLES,
+                    seed=None,
+                )
+                if cand_wp.win_probability > round_best_prob + _DELTA:
+                    round_best_prob = cand_wp.win_probability
+                    round_best_xi = candidate_xi
+
+            rounds_run += 1
+
+            if round_best_xi is None:
+                break  # converged
+
+            total_delta += round_best_prob - best_prob
+            best_prob = round_best_prob
+            best_xi = round_best_xi
+            any_swap = True
+
+        if not any_swap:
+            return current_xi, current_win_prob, current_toss, rounds_run, 0.0
+
+        # Re-simulate winner at full fidelity.
+        final_wp, final_toss = self.simulator_agent.simulate(
+            own_xi=best_xi,
+            opponent=forecast,
+            conditions=conditions,
+            sample_size=sample_size,
+            seed=17,
+        )
+        return best_xi, final_wp, final_toss, rounds_run, total_delta
+
+    @staticmethod
+    def _proxy_score(
+        p: Player,
+        conditions: ConditionsVector,
+        posteriors: dict[str, Posterior],
+    ) -> float:
+        run_w = ScoutAgent.base_runs_weight(p)
+        wkt_w = ScoutAgent.base_wickets_weight(p)
+        base = conditions.alpha * run_w + conditions.beta * wkt_w * 150.0
+        return base * posteriors[p.player_id].mean
+
+    @staticmethod
+    def _swap_xi(
+        xi: XIOptimization,
+        out_player: Player,
+        in_player: Player,
+    ) -> XIOptimization:
+        new_selected = [p for p in xi.selected_xi if p.player_id != out_player.player_id] + [in_player]
+        new_excluded = [p for p in xi.excluded if p.player_id != in_player.player_id] + [out_player]
+        return xi.model_copy(update={
+            "selected_xi": new_selected,
+            "excluded": new_excluded,
+            "slot_reasons": {},
+            "note": None,
+        })

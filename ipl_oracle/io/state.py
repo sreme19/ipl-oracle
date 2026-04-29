@@ -54,6 +54,8 @@ class StateStore:
                 ci_width REAL NOT NULL,
                 toss_decision TEXT NOT NULL,
                 refinement_rounds INTEGER NOT NULL,
+                mc_feedback_rounds INTEGER NOT NULL DEFAULT 0,
+                mc_feedback_delta REAL NOT NULL DEFAULT 0.0,
                 solve_time_ms REAL NOT NULL,
                 sample_size INTEGER NOT NULL,
                 calibrated INTEGER NOT NULL,
@@ -62,6 +64,16 @@ class StateStore:
             """
         )
         self._conn.commit()
+        # Migrate existing databases that predate the mc_feedback columns.
+        for col, defn in [
+            ("mc_feedback_rounds", "INTEGER NOT NULL DEFAULT 0"),
+            ("mc_feedback_delta",  "REAL NOT NULL DEFAULT 0.0"),
+        ]:
+            try:
+                self._conn.execute(f"ALTER TABLE runs ADD COLUMN {col} {defn}")
+                self._conn.commit()
+            except sqlite3.OperationalError:
+                pass  # column already exists
 
     # ------------------------------------------------------------------ form
 
@@ -116,6 +128,7 @@ class StateStore:
         wp = result.win_probability
         ci_lower, ci_upper = wp.confidence_interval
         strategy = result.decision_trace.get("strategy", {})
+        mc = result.decision_trace.get("mc_feedback", {})
         self._conn.execute(
             """
             INSERT OR REPLACE INTO runs (
@@ -123,8 +136,9 @@ class StateStore:
                 strategy_mode, gamma, selected_xi,
                 win_probability, ci_lower, ci_upper, ci_width,
                 toss_decision, refinement_rounds,
+                mc_feedback_rounds, mc_feedback_delta,
                 solve_time_ms, sample_size, calibrated
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 run_id,
@@ -141,6 +155,8 @@ class StateStore:
                 ci_upper - ci_lower,
                 result.toss.decision,
                 int(strategy.get("refinement_attempts", 0)),
+                int(mc.get("rounds", 0)),
+                float(mc.get("win_prob_delta", 0.0)),
                 result.own_xi.solve_time_ms,
                 wp.sample_size,
                 int(wp.calibrated),
@@ -161,8 +177,8 @@ class StateStore:
                 SELECT run_id, run_at, team, opponent, venue,
                        strategy_mode, gamma, win_probability,
                        ci_lower, ci_upper, ci_width, toss_decision,
-                       refinement_rounds, solve_time_ms, sample_size,
-                       calibrated, outcome_recorded
+                       refinement_rounds, mc_feedback_rounds, mc_feedback_delta,
+                       solve_time_ms, sample_size, calibrated, outcome_recorded
                 FROM runs
                 WHERE team = ?
                 ORDER BY run_at DESC LIMIT ?
@@ -175,8 +191,8 @@ class StateStore:
                 SELECT run_id, run_at, team, opponent, venue,
                        strategy_mode, gamma, win_probability,
                        ci_lower, ci_upper, ci_width, toss_decision,
-                       refinement_rounds, solve_time_ms, sample_size,
-                       calibrated, outcome_recorded
+                       refinement_rounds, mc_feedback_rounds, mc_feedback_delta,
+                       solve_time_ms, sample_size, calibrated, outcome_recorded
                 FROM runs
                 ORDER BY run_at DESC LIMIT ?
                 """,
@@ -186,8 +202,8 @@ class StateStore:
             "run_id", "run_at", "team", "opponent", "venue",
             "strategy_mode", "gamma", "win_probability",
             "ci_lower", "ci_upper", "ci_width", "toss_decision",
-            "refinement_rounds", "solve_time_ms", "sample_size",
-            "calibrated", "outcome_recorded",
+            "refinement_rounds", "mc_feedback_rounds", "mc_feedback_delta",
+            "solve_time_ms", "sample_size", "calibrated", "outcome_recorded",
         ]
         return [dict(zip(keys, row)) for row in rows]
 
