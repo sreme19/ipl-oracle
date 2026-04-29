@@ -122,6 +122,7 @@ class TossDecision(BaseModel):
 
 
 class OracleResult(BaseModel):
+    run_id: str = ""
     own_team: str
     opponent_team: str
     fixture: Fixture

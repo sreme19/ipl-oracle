@@ -10,6 +10,7 @@ import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+from rich.text import Text
 
 from .agents.linkedin import LinkedInAgent
 from .agents.narrator import NarratorAgent
@@ -65,6 +66,8 @@ def run(
         raise typer.Exit(1) from exc
 
     _render(result, json_out=json_out, no_narrative=no_narrative)
+    if result.run_id:
+        console.print(f"[dim]run logged → {result.run_id}[/dim]")
 
     if linkedin:
         post = LinkedInAgent().compose(result)
@@ -335,6 +338,76 @@ def squad(
     sq = loader.load_squad(team)
     sys.stdout.write(json.dumps(sq.model_dump(), indent=2, default=str))
     sys.stdout.write("\n")
+
+
+@app.command()
+def history(
+    team: str | None = typer.Option(None, "--team", "-t", help="Filter by team code"),
+    last: int = typer.Option(20, "--last", "-n", help="Number of runs to show"),
+):
+    """Review past oracle runs logged in state.db."""
+    state = StateStore()
+    rows = state.run_history(team=team, limit=last)
+    if not rows:
+        console.print("[yellow]No runs logged yet.[/yellow]")
+        raise typer.Exit()
+
+    table = Table(title="Run History", show_lines=False)
+    table.add_column("Date", style="dim")
+    table.add_column("Team")
+    table.add_column("vs")
+    table.add_column("Venue")
+    table.add_column("Mode")
+    table.add_column("Win %", justify="right")
+    table.add_column("CI width", justify="right")
+    table.add_column("Toss")
+    table.add_column("Refine", justify="right")
+    table.add_column("Outcome", justify="center")
+    table.add_column("Run ID", style="dim")
+
+    for r in rows:
+        ts = datetime.fromtimestamp(r["run_at"]).strftime("%Y-%m-%d %H:%M")
+        win_pct = f"{r['win_probability']:.1%}"
+        ci = f"{r['ci_width']:.3f}"
+        outcome = "[green]✓[/green]" if r["outcome_recorded"] else "[dim]—[/dim]"
+        mode_colour = {"robust": "yellow", "bayesian": "cyan", "deterministic": "white"}.get(
+            r["strategy_mode"], "white"
+        )
+        table.add_row(
+            ts,
+            r["team"],
+            r["opponent"],
+            r["venue"][:28],
+            Text(r["strategy_mode"], style=mode_colour),
+            win_pct,
+            ci,
+            r["toss_decision"],
+            str(r["refinement_rounds"]),
+            outcome,
+            r["run_id"][:8] + "…",
+        )
+
+    console.print(table)
+    console.print(
+        f"\n[dim]Full run IDs shown truncated. "
+        f"DB path: {StateStore().path}[/dim]"
+    )
+
+
+@app.command(name="record-outcome")
+def record_outcome(
+    run_id: str = typer.Argument(..., help="Run ID from 'ipl-oracle history'"),
+    won: bool = typer.Option(..., "--won/--lost", help="Did the team win?"),
+):
+    """Record the actual match result for a past run (feeds Platt calibration)."""
+    state = StateStore()
+    ok = state.record_outcome(run_id, won)
+    if not ok:
+        console.print(f"[red]Run ID not found:[/red] {run_id}")
+        raise typer.Exit(1)
+    result_str = "[green]WIN[/green]" if won else "[red]LOSS[/red]"
+    console.print(f"Outcome recorded: {result_str} for run {run_id[:8]}…")
+    console.print("[dim]Platt scaler will use this on the next run.[/dim]")
 
 
 if __name__ == "__main__":

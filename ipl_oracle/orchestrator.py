@@ -114,7 +114,12 @@ class Orchestrator:
                 },
             },
         )
+
+        run_id = ""
+        if self.state is not None:
+            run_id = self.state.log_run(partial)
+
         narrative = ""
         if self.narrator is not None:
             narrative = self.narrator.narrate(build_trace(partial))
-        return partial.model_copy(update={"narrative": narrative})
+        return partial.model_copy(update={"narrative": narrative, "run_id": run_id})
