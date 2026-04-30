@@ -340,6 +340,67 @@ def squad(
     sys.stdout.write("\n")
 
 
+@app.command(name="enrichment-team")
+def enrichment_team(
+    team: str = typer.Argument(..., help="Team code"),
+    season: int | None = typer.Option(None, "--season", help="Season year"),
+    markdown: bool = typer.Option(False, "--markdown", help="Print generated markdown briefing"),
+    data_dir: str | None = typer.Option(None, "--data-dir"),
+):
+    """Show synthesized analyst enrichment for one team."""
+    loader = DataLoader(data_dir)
+    try:
+        insight = loader.load_team_insight(team, season=season)
+    except Exception as exc:  # noqa: BLE001
+        console.print(f"[red]error:[/red] {exc}")
+        raise typer.Exit(1) from exc
+
+    if markdown:
+        try:
+            briefing = loader.load_team_briefing_markdown(team, season=season)
+            sys.stdout.write(briefing)
+            if not briefing.endswith("\n"):
+                sys.stdout.write("\n")
+            return
+        except Exception as exc:  # noqa: BLE001
+            console.print(f"[red]error:[/red] {exc}")
+            raise typer.Exit(1) from exc
+
+    table = Table(title=f"Analyst Insight — {team.upper()}")
+    table.add_column("Type", style="cyan")
+    table.add_column("Details")
+    table.add_row("Take", insight.get("analyst_take", ""))
+    table.add_row("Strengths", "; ".join(insight.get("strengths", [])))
+    table.add_row("Risks", "; ".join(insight.get("risks", [])))
+    table.add_row("Style", ", ".join(insight.get("style_tags", [])))
+    console.print(table)
+
+
+@app.command(name="enrichment-match")
+def enrichment_match(
+    match_id: str = typer.Argument(..., help="Match ID, e.g. 2026-IPL-42"),
+    season: int | None = typer.Option(None, "--season", help="Season year"),
+    data_dir: str | None = typer.Option(None, "--data-dir"),
+):
+    """Show synthesized analyst commentary for one fixture."""
+    loader = DataLoader(data_dir)
+    try:
+        fx = loader.find_fixture_commentary(match_id, season=season)
+    except Exception as exc:  # noqa: BLE001
+        console.print(f"[red]error:[/red] {exc}")
+        raise typer.Exit(1) from exc
+
+    panel_text = (
+        f"{fx['home_team']} vs {fx['away_team']} @ {fx['venue']} ({fx['match_date']})\n\n"
+        f"{fx['insight_commentary']}\n\n"
+        "Watch for:\n"
+        f"- {fx['watch_for'][0]}\n"
+        f"- {fx['watch_for'][1]}\n"
+        f"- {fx['watch_for'][2]}"
+    )
+    console.print(Panel(panel_text, title=f"Enrichment {match_id}"))
+
+
 @app.command()
 def history(
     team: str | None = typer.Option(None, "--team", "-t", help="Filter by team code"),

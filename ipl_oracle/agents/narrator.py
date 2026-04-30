@@ -35,12 +35,16 @@ REQUIREMENTS
 6. Close with a one-paragraph 'tactical risks' section: what could
    invalidate this plan (dew, opposition swap, injury), and the smallest
    override that would change the answer.
+7. If `decision_trace.analyst_enrichment.available` is true, incorporate the
+   analyst context naturally: one team-level insight, one opponent-level
+   insight, and one fixture-specific watchout.
 
 STYLE
 - 350-500 words total, no headers, no bullet sections except the XI list.
 - Use the language of professional cricket analysis. Be specific, not
   generic. Cite numbers from the trace (par score, win prob, etc.).
 - Do NOT fabricate stats absent from the trace.
+- Treat enrichment commentary as guidance; never present it as guaranteed fact.
 """
 
 

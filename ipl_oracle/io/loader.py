@@ -1,10 +1,11 @@
-"""Reads bundled JSON datasets (squads, players, venues, fixtures)."""
+"""Reads bundled JSON datasets (squads, players, venues, fixtures, enrichment)."""
 from __future__ import annotations
 
 import json
 import os
 from datetime import date, datetime
 from pathlib import Path
+from typing import Any
 
 from ..schemas import Fixture, Player, PlayerRole, Squad, Venue
 
@@ -36,6 +37,13 @@ class DataLoader:
         with path.open() as f:
             return json.load(f)
 
+    def _read_json_if_exists(self, *parts: str) -> dict | None:
+        path = self.data_dir.joinpath(*parts)
+        if not path.exists():
+            return None
+        with path.open() as f:
+            return json.load(f)
+
     def load_squad(self, team_code: str) -> Squad:
         raw = self._read_json("squads", f"{team_code.upper()}.json")
         players = [self._parse_player(p) for p in raw["players"]]
@@ -60,6 +68,45 @@ class DataLoader:
                 f["match_date"] = datetime.fromisoformat(f["match_date"]).date()
             out.append(Fixture(**f))
         return out
+
+    def load_analyst_enrichment(self, season: int | None = None) -> dict[str, Any]:
+        """Load synthesized analyst commentary enrichment."""
+        if season is None:
+            return self._read_json("enrichment", "analyst_insights_2026.json")
+        return self._read_json("enrichment", f"analyst_insights_{season}.json")
+
+    def load_team_insight(self, team_code: str, season: int | None = None) -> dict[str, Any]:
+        team_u = team_code.upper()
+        data = self.load_analyst_enrichment(season=season)
+        insights = data.get("team_insights", {})
+        if team_u not in insights:
+            raise DataNotFoundError(f"No team insight found for {team_u}")
+        return insights[team_u]
+
+    def list_team_briefings(self, season: int | None = None) -> list[str]:
+        data = self.load_analyst_enrichment(season=season)
+        season_value = season or int(data.get("season", 2026))
+        briefings_dir = self.data_dir / "enrichment" / f"briefings_{season_value}"
+        if not briefings_dir.exists():
+            return []
+        return sorted(str(path.name) for path in briefings_dir.glob("*.md"))
+
+    def load_team_briefing_markdown(self, team_code: str, season: int | None = None) -> str:
+        data = self.load_analyst_enrichment(season=season)
+        season_value = season or int(data.get("season", 2026))
+        team_u = team_code.upper()
+        briefings_dir = self.data_dir / "enrichment" / f"briefings_{season_value}"
+        path = briefings_dir / f"{team_u}.md"
+        if not path.exists():
+            raise DataNotFoundError(f"Missing team briefing markdown: {path}")
+        return path.read_text()
+
+    def find_fixture_commentary(self, match_id: str, season: int | None = None) -> dict[str, Any]:
+        data = self.load_analyst_enrichment(season=season)
+        for fixture in data.get("fixture_commentary", []):
+            if fixture.get("match_id") == match_id:
+                return fixture
+        raise DataNotFoundError(f"No fixture commentary found for {match_id}")
 
     def find_next_fixture(self, team_code: str, on_or_after: date | None = None) -> Fixture:
         team_code = team_code.upper()

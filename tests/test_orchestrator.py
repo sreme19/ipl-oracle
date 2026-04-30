@@ -25,6 +25,8 @@ def test_full_pipeline_runs_without_narrator(tmp_path):
     assert 0.0 <= result.win_probability.win_probability <= 1.0
     assert result.toss.decision in ("bat", "bowl")
     assert result.narrative == ""  # narrator disabled
+    assert "analyst_enrichment" in result.decision_trace
+    assert result.decision_trace["analyst_enrichment"]["available"] is True
 
 
 def test_pipeline_resolves_next_fixture_for_team(tmp_path):
@@ -42,3 +44,4 @@ def test_pipeline_resolves_next_fixture_for_team(tmp_path):
     result = orch.run(req)
     assert result.fixture.home_team == "RCB" or result.fixture.away_team == "RCB"
     assert result.fixture.match_date == date(2026, 4, 12)
+    assert result.decision_trace["analyst_enrichment"]["available"] is True

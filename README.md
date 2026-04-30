@@ -124,6 +124,9 @@ ipl-oracle run --team RCB --must-include rcb_kohli --must-exclude rcb_maxwell
 # Inspect data
 ipl-oracle fixtures --team RCB
 ipl-oracle squad RCB
+ipl-oracle enrichment-team RCB
+ipl-oracle enrichment-match 2026-IPL-42
+ipl-oracle enrichment-team RCB --markdown
 
 # Emit a LinkedIn-style post (deterministic, no LLM key required)
 ipl-oracle linkedin --team RCB
@@ -173,6 +176,12 @@ python scripts/ingest_cricsheet.py --output ipl_oracle/data --seasons 2024 2025
 
 Future fixtures are not in Cricsheet — `ipl_oracle/data/fixtures/fixtures.json`
 is hand-maintained from the IPL website and should be updated each season.
+
+To regenerate analyst commentary enrichment and team markdown briefings:
+
+```bash
+python scripts/refresh_enrichment.py --season 2026
+```
 
 ## State
 

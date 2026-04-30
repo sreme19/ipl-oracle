@@ -10,6 +10,7 @@ from .agents.selector import SelectorAgent
 from .agents.simulator import SimulatorAgent
 from .agents.strategist import StrategistAgent
 from .io import DataLoader, StateStore
+from .io.loader import DataNotFoundError
 from .optimization.bayesian import Posterior
 from .schemas import (
     ConditionsVector,
@@ -127,6 +128,12 @@ class Orchestrator:
             toss=toss,
             narrative="",
             decision_trace={
+                "analyst_enrichment": self._build_analyst_context(
+                    team=team,
+                    opponent=opponent_code,
+                    match_id=fixture.match_id,
+                    season=fixture.season,
+                ),
                 "strategy": {
                     "mode": decision.mode.value,
                     "gamma": decision.gamma,
@@ -151,6 +158,48 @@ class Orchestrator:
         if self.narrator is not None:
             narrative = self.narrator.narrate(build_trace(partial))
         return partial.model_copy(update={"narrative": narrative, "run_id": run_id})
+
+    def _build_analyst_context(
+        self,
+        team: str,
+        opponent: str,
+        match_id: str,
+        season: int,
+    ) -> dict:
+        """Attach enrichment when available; stay non-fatal if missing."""
+        try:
+            enrichment = self.loader.load_analyst_enrichment(season=season)
+            team_insight = self.loader.load_team_insight(team, season=season)
+            opponent_insight = self.loader.load_team_insight(opponent, season=season)
+        except DataNotFoundError:
+            return {"available": False}
+
+        try:
+            fixture_note = self.loader.find_fixture_commentary(match_id, season=season)
+        except DataNotFoundError:
+            fixture_note = {
+                "match_id": match_id,
+                "insight_commentary": (
+                    f"{team_insight.get('analyst_take', '')} "
+                    f"{opponent_insight.get('analyst_take', '')}"
+                ).strip(),
+                "watch_for": [
+                    f"{team}: {team_insight.get('strengths', [''])[0]}",
+                    f"{opponent}: {opponent_insight.get('strengths', [''])[0]}",
+                ],
+            }
+
+        watchlist = enrichment.get("key_players_watchlist", {})
+        return {
+            "available": True,
+            "sources": enrichment.get("sources", []),
+            "league_trends": enrichment.get("league_trends", []),
+            "team_insight": team_insight,
+            "opponent_insight": opponent_insight,
+            "team_watchlist": watchlist.get(team, [])[:5],
+            "opponent_watchlist": watchlist.get(opponent, [])[:5],
+            "fixture_commentary": fixture_note,
+        }
 
     # ------------------------------------------------------------------ MC feedback loop
 

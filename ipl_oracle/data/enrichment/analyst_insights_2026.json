@@ -1,0 +1,1689 @@
+{
+  "season": 2026,
+  "generated_at_utc": "2026-04-30T18:12:40.335062+00:00",
+  "methodology": "Auto-refreshed via web source discovery + local fixture/venue mapping. Commentary is synthesized planning guidance.",
+  "sources": [
+    {
+      "publisher": "www.espncricinfo.com",
+      "url": "https://www.espncricinfo.com/story/ipl-auction-2025-how-the-ten-teams-stack-up-after-the-mega-auction-1461630",
+      "title": "IPL auction 2025 - How the ten teams stack up after the mega auction",
+      "note": "Fallback source used when live scraping is unavailable."
+    },
+    {
+      "publisher": "www.espncricinfo.com",
+      "url": "https://www.espncricinfo.com/story/ipl-2025-playoffs-how-punjab-kings-rcb-gujarat-titans-mumbai-indians-stack-up-1487758",
+      "title": "IPL 2025 playoffs - team stack up analysis",
+      "note": "Fallback source used when live scraping is unavailable."
+    },
+    {
+      "publisher": "www.skysports.com",
+      "url": "https://www.skysports.com/cricket/news/12040/13372752/indian-premier-league-2025-the-final-four-teams-are-locked-in-but-who-will-come-out-strongest",
+      "title": "Indian Premier League 2025 final four analysis",
+      "note": "Fallback source used when live scraping is unavailable."
+    },
+    {
+      "publisher": "sportstar.thehindu.com",
+      "url": "https://sportstar.thehindu.com/cricket/ipl/ipl-news/rcb-ipl-2025-squad-key-players-and-strategy/article69356690.ece",
+      "title": "Royal Challengers Bengaluru IPL 2025 Preview",
+      "note": "Fallback source used when live scraping is unavailable."
+    },
+    {
+      "publisher": "sports.ndtv.com",
+      "url": "https://sports.ndtv.com/ipl-2025/ipl-2025-mid-season-review-batters-continue-to-dominate-rise-of-the-underachievers-and-no-home-advantage-8243184",
+      "title": "IPL 2025 mid-season review",
+      "note": "Fallback source used when live scraping is unavailable."
+    }
+  ],
+  "league_trends": [
+    "Powerplay scoring remains elevated league-wide; early intent defines par trajectories.",
+    "Away teams stay competitive; home advantage is weaker without strong venue specialization.",
+    "Chasing remains favorable on high-dew surfaces and batting-friendly grounds.",
+    "Middle-over bowling plans mixing pace-off and hard lengths are repeatedly cited as difference-makers."
+  ],
+  "team_insights": {
+    "CSK": {
+      "analyst_take": "Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later.",
+      "strengths": [
+        "Chepauk spin squeeze with layered options",
+        "Late-innings finishing experience",
+        "Tactical matchups against right-heavy batting units"
+      ],
+      "risks": [
+        "Powerplay scoring lag compared with league trend",
+        "If surfaces flatten, bowling advantage narrows"
+      ],
+      "style_tags": [
+        "spin-to-win",
+        "control-middle-overs",
+        "experienced-finishers"
+      ]
+    },
+    "DC": {
+      "analyst_take": "Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control.",
+      "strengths": [
+        "Aggressive batting intent around anchor options",
+        "Improved pace depth in attack",
+        "Flexible batting combinations"
+      ],
+      "risks": [
+        "Collapse risk when top-order assault fails",
+        "Death-over execution swings results sharply"
+      ],
+      "style_tags": [
+        "high-variance",
+        "pace-upside",
+        "aggressive-top-order"
+      ]
+    },
+    "GT": {
+      "analyst_take": "Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions.",
+      "strengths": [
+        "Consistent top-order run engine",
+        "Bowling depth with powerplay and death options",
+        "Composure in chases and pressure games"
+      ],
+      "risks": [
+        "Top-order over-dependence if early wickets fall",
+        "Middle-order acceleration can stall under spin choke"
+      ],
+      "style_tags": [
+        "balanced",
+        "top-order-driven",
+        "bowling-resilience"
+      ]
+    },
+    "KKR": {
+      "analyst_take": "KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn.",
+      "strengths": [
+        "Power-hitting ceiling on true surfaces",
+        "Multiple seam and hit-the-deck options",
+        "Strong familiarity with home conditions"
+      ],
+      "risks": [
+        "Tempo mismatch if anchor-heavy lineups are used",
+        "Inconsistency against high-quality legspin"
+      ],
+      "style_tags": [
+        "momentum-team",
+        "home-surge",
+        "power-batting"
+      ]
+    },
+    "LSG": {
+      "analyst_take": "LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability.",
+      "strengths": [
+        "Bowling variety across pace and spin",
+        "Adaptable composition by venue",
+        "Capable finishers for close chases"
+      ],
+      "risks": [
+        "Opening partnerships can be unstable",
+        "Can become over-reliant on overseas batting output"
+      ],
+      "style_tags": [
+        "flexible",
+        "bowling-heavy",
+        "matchup-driven"
+      ]
+    },
+    "MI": {
+      "analyst_take": "Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end.",
+      "strengths": [
+        "High-end pace trio for powerplay and death",
+        "Explosive middle-order shot-making",
+        "Strong record handling knockout pressure"
+      ],
+      "risks": [
+        "Balance shifts when overseas exits or injuries hit",
+        "Dependence on pace unit can expose spin gaps"
+      ],
+      "style_tags": [
+        "peaking-team",
+        "elite-pace",
+        "knockout-experience"
+      ]
+    },
+    "PBKS": {
+      "analyst_take": "PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity.",
+      "strengths": [
+        "Indian batting core in strong form",
+        "Frontline wicket-taking left-arm pace",
+        "Clearer captain-coach blueprint"
+      ],
+      "risks": [
+        "Lower-order stability tested if early wickets fall",
+        "Bowling depth can thin when all-rounders are unavailable"
+      ],
+      "style_tags": [
+        "indian-core",
+        "defined-roles",
+        "upward-trajectory"
+      ]
+    },
+    "RCB": {
+      "analyst_take": "RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution.",
+      "strengths": [
+        "Improved powerplay bowling control",
+        "High-impact top-order aggression",
+        "Finishing firepower in overs 16-20"
+      ],
+      "risks": [
+        "Middle-order volatility under early pressure",
+        "Spin resources can be stretched on turners"
+      ],
+      "style_tags": [
+        "rebalanced-squad",
+        "powerplay-discipline",
+        "death-hitting"
+      ]
+    },
+    "RR": {
+      "analyst_take": "RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold.",
+      "strengths": [
+        "Indian top-order strike-rate potential",
+        "Refreshed seam-spin bowling mix",
+        "Tactical flexibility through impact substitutions"
+      ],
+      "risks": [
+        "Limited overseas batting backups",
+        "Availability and workload management of pace spearheads"
+      ],
+      "style_tags": [
+        "indian-top-heavy",
+        "bowling-refresh",
+        "fitness-sensitive"
+      ]
+    },
+    "SRH": {
+      "analyst_take": "SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor.",
+      "strengths": [
+        "Explosive top-order scoring bands",
+        "Ability to post above-par totals quickly",
+        "Strong matchup pressure in powerplay"
+      ],
+      "risks": [
+        "Middle-over control can dip after aggressive starts",
+        "Less-tested bench depth in some roles"
+      ],
+      "style_tags": [
+        "explosive-top",
+        "high-scoring",
+        "pressure-powerplay"
+      ]
+    }
+  },
+  "key_players_watchlist": {
+    "CSK": [
+      {
+        "player_id": "csk_dube",
+        "name": "Shivam Dube",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "csk_samson",
+        "name": "Sanju Samson",
+        "role": "wicket_keeper",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "csk_noor",
+        "name": "Noor Ahmad",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "csk_sarfaraz",
+        "name": "Sarfaraz Khan",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "csk_mhatre",
+        "name": "Ayush Mhatre",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "csk_gaikwad",
+        "name": "Ruturaj Gaikwad",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "csk_henry",
+        "name": "Matt Henry",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "csk_brevis",
+        "name": "Dewald Brevis",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "csk_overton",
+        "name": "Jamie Overton",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      }
+    ],
+    "DC": [
+      {
+        "player_id": "dc_stubbs",
+        "name": "Tristan Stubbs",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "dc_kuldeep",
+        "name": "Kuldeep Yadav",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "dc_starc",
+        "name": "Mitchell Starc",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "dc_duckett",
+        "name": "Ben Duckett",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "dc_axar",
+        "name": "Axar Patel",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "dc_kl_rahul",
+        "name": "KL Rahul",
+        "role": "wicket_keeper",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "dc_jamieson",
+        "name": "Kyle Jamieson",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "dc_nissanka",
+        "name": "Pathum Nissanka",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "dc_ngidi",
+        "name": "Lungi Ngidi",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      }
+    ],
+    "GT": [
+      {
+        "player_id": "gt_rashid",
+        "name": "Rashid Khan",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "gt_gill",
+        "name": "Shubman Gill",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "gt_rabada",
+        "name": "Kagiso Rabada",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "gt_shahrukh",
+        "name": "Shahrukh Khan",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "gt_buttler",
+        "name": "Jos Buttler",
+        "role": "wicket_keeper",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "gt_sai",
+        "name": "Sai Sudharsan",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "gt_siraj",
+        "name": "Mohammed Siraj",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "gt_phillips",
+        "name": "Glenn Phillips",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "gt_holder",
+        "name": "Jason Holder",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      }
+    ],
+    "KKR": [
+      {
+        "player_id": "kkr_narine",
+        "name": "Sunil Narine",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "kkr_rinku",
+        "name": "Rinku Singh",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "kkr_pathirana",
+        "name": "Matheesha Pathirana",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "kkr_chakravarthy",
+        "name": "Varun Chakaravarthy",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "kkr_finn",
+        "name": "Finn Allen",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "kkr_powell",
+        "name": "Rovman Powell",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "kkr_cam_green",
+        "name": "Cameron Green",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "kkr_angkrish",
+        "name": "Angkrish Raghuvanshi",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "kkr_ramandeep",
+        "name": "Ramandeep Singh",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      }
+    ],
+    "LSG": [
+      {
+        "player_id": "lsg_mayank",
+        "name": "Mayank Yadav",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "lsg_pooran",
+        "name": "Nicholas Pooran",
+        "role": "wicket_keeper",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "lsg_mohsin",
+        "name": "Mohsin Khan",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "lsg_bishnoi",
+        "name": "Ravi Bishnoi",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "lsg_arshin",
+        "name": "Arshin Kulkarni",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "lsg_naveen",
+        "name": "Naveen-ul-Haq",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "lsg_abd",
+        "name": "Abdul Samad",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "lsg_mitchell_marsh",
+        "name": "Mitchell Marsh",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "lsg_aiden",
+        "name": "Aiden Markram",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      }
+    ],
+    "MI": [
+      {
+        "player_id": "mi_bumrah",
+        "name": "Jasprit Bumrah",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "mi_yadav_s",
+        "name": "Suryakumar Yadav",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "mi_boult",
+        "name": "Trent Boult",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "mi_jacks",
+        "name": "Will Jacks",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "mi_tilak",
+        "name": "Tilak Varma",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "mi_rickelton",
+        "name": "Ryan Rickelton",
+        "role": "wicket_keeper",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "mi_ghazanfar",
+        "name": "AM Ghazanfar",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "mi_rutherford",
+        "name": "Sherfane Rutherford",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "mi_pandya_h",
+        "name": "Hardik Pandya",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      }
+    ],
+    "PBKS": [
+      {
+        "player_id": "pbks_iyer_s",
+        "name": "Shreyas Iyer",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "pbks_arshdeep",
+        "name": "Arshdeep Singh",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "pbks_shashank",
+        "name": "Shashank Singh",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "pbks_priyansh",
+        "name": "Priyansh Arya",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "pbks_jansen",
+        "name": "Marco Jansen",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "pbks_ferguson",
+        "name": "Lockie Ferguson",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "pbks_prabhsimran",
+        "name": "Prabhsimran Singh",
+        "role": "wicket_keeper",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "pbks_chahal",
+        "name": "Yuzvendra Chahal",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "pbks_nehal",
+        "name": "Nehal Wadhera",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      }
+    ],
+    "RCB": [
+      {
+        "player_id": "rcb_hazlewood",
+        "name": "Josh Hazlewood",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rcb_salt",
+        "name": "Phil Salt",
+        "role": "wicket_keeper",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rcb_patidar",
+        "name": "Rajat Patidar",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rcb_dayal",
+        "name": "Yash Dayal",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rcb_timdavid",
+        "name": "Tim David",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rcb_shepherd",
+        "name": "Romario Shepherd",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rcb_bethell",
+        "name": "Jacob Bethell",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rcb_kohli",
+        "name": "Virat Kohli",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rcb_venkatesh",
+        "name": "Venkatesh Iyer",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      }
+    ],
+    "RR": [
+      {
+        "player_id": "rr_jaiswal",
+        "name": "Yashasvi Jaiswal",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rr_buttler",
+        "name": "Jos Buttler",
+        "role": "wicket_keeper",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rr_shimron",
+        "name": "Wanindu Hasaranga",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rr_parag",
+        "name": "Riyan Parag",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rr_hetmyer",
+        "name": "Shimron Hetmyer",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rr_holder",
+        "name": "Jason Holder",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rr_dhruv",
+        "name": "Dhruv Jurel",
+        "role": "wicket_keeper",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rr_avesh",
+        "name": "Avesh Khan",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "rr_sandeep",
+        "name": "Sandeep Sharma",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      }
+    ],
+    "SRH": [
+      {
+        "player_id": "srh_klaasen",
+        "name": "Heinrich Klaasen",
+        "role": "wicket_keeper",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "srh_head",
+        "name": "Travis Head",
+        "role": "batsman",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "srh_abhishek",
+        "name": "Abhishek Sharma",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "srh_nitish",
+        "name": "Nitish Kumar Reddy",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "srh_cummins",
+        "name": "Pat Cummins",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "srh_livingstone",
+        "name": "Liam Livingstone",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "srh_kamindu",
+        "name": "Kamindu Mendis",
+        "role": "all_rounder",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "srh_eshan",
+        "name": "Eshan Malinga",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      },
+      {
+        "player_id": "srh_brydon",
+        "name": "Brydon Carse",
+        "role": "bowler",
+        "analyst_focus": "Role-critical in likely XIs; monitor phase impact and current form."
+      }
+    ]
+  },
+  "fixture_commentary": [
+    {
+      "match_id": "2026-IPL-01",
+      "match_date": "2026-03-28",
+      "home_team": "RCB",
+      "away_team": "SRH",
+      "venue": "M Chinnaswamy Stadium",
+      "insight_commentary": "RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 195; dew factor 0.60 and chasing bias 0.55 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RCB: Improved powerplay bowling control",
+        "SRH: Explosive top-order scoring bands",
+        "Venue dynamic: par 195, dew 0.60, chase bias 0.55"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-02",
+      "match_date": "2026-03-29",
+      "home_team": "MI",
+      "away_team": "KKR",
+      "venue": "Wankhede Stadium",
+      "insight_commentary": "Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 175; dew factor 0.55 and chasing bias 0.58 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "MI: High-end pace trio for powerplay and death",
+        "KKR: Power-hitting ceiling on true surfaces",
+        "Venue dynamic: par 175, dew 0.55, chase bias 0.58"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-03",
+      "match_date": "2026-03-30",
+      "home_team": "RR",
+      "away_team": "CSK",
+      "venue": "Barsapara Cricket Stadium",
+      "insight_commentary": "RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 170; dew factor 0.55 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RR: Indian top-order strike-rate potential",
+        "CSK: Chepauk spin squeeze with layered options",
+        "Venue dynamic: par 170, dew 0.55, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-04",
+      "match_date": "2026-03-31",
+      "home_team": "PBKS",
+      "away_team": "GT",
+      "venue": "Maharaja Yadavindra Singh International Cricket Stadium",
+      "insight_commentary": "PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 180; dew factor 0.35 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "PBKS: Indian batting core in strong form",
+        "GT: Consistent top-order run engine",
+        "Venue dynamic: par 180, dew 0.35, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-05",
+      "match_date": "2026-04-01",
+      "home_team": "LSG",
+      "away_team": "DC",
+      "venue": "BRSABV Ekana Cricket Stadium",
+      "insight_commentary": "LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. Bowling-friendly conditions amplify powerplay wicket value and disciplined hard lengths. Expected par first innings is around 165; dew factor 0.40 and chasing bias 0.45 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "LSG: Bowling variety across pace and spin",
+        "DC: Aggressive batting intent around anchor options",
+        "Venue dynamic: par 165, dew 0.40, chase bias 0.45"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-06",
+      "match_date": "2026-04-02",
+      "home_team": "KKR",
+      "away_team": "SRH",
+      "venue": "Eden Gardens",
+      "insight_commentary": "KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.50 and chasing bias 0.48 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "KKR: Power-hitting ceiling on true surfaces",
+        "SRH: Explosive top-order scoring bands",
+        "Venue dynamic: par 175, dew 0.50, chase bias 0.48"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-07",
+      "match_date": "2026-04-03",
+      "home_team": "CSK",
+      "away_team": "PBKS",
+      "venue": "MA Chidambaram Stadium",
+      "insight_commentary": "Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. Spin-friendly conditions reward rotation and matchup management against quality spin. Expected par first innings is around 165; dew factor 0.35 and chasing bias 0.42 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "CSK: Chepauk spin squeeze with layered options",
+        "PBKS: Indian batting core in strong form",
+        "Venue dynamic: par 165, dew 0.35, chase bias 0.42"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-08",
+      "match_date": "2026-04-04",
+      "home_team": "DC",
+      "away_team": "MI",
+      "venue": "Arun Jaitley Stadium",
+      "insight_commentary": "Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.30 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "DC: Aggressive batting intent around anchor options",
+        "MI: High-end pace trio for powerplay and death",
+        "Venue dynamic: par 175, dew 0.30, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-09",
+      "match_date": "2026-04-04",
+      "home_team": "GT",
+      "away_team": "RR",
+      "venue": "Narendra Modi Stadium",
+      "insight_commentary": "Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.40 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "GT: Consistent top-order run engine",
+        "RR: Indian top-order strike-rate potential",
+        "Venue dynamic: par 175, dew 0.40, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-10",
+      "match_date": "2026-04-05",
+      "home_team": "SRH",
+      "away_team": "LSG",
+      "venue": "Rajiv Gandhi International Stadium",
+      "insight_commentary": "SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 180; dew factor 0.50 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "SRH: Explosive top-order scoring bands",
+        "LSG: Bowling variety across pace and spin",
+        "Venue dynamic: par 180, dew 0.50, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-11",
+      "match_date": "2026-04-05",
+      "home_team": "RCB",
+      "away_team": "CSK",
+      "venue": "M Chinnaswamy Stadium",
+      "insight_commentary": "RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 195; dew factor 0.60 and chasing bias 0.55 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RCB: Improved powerplay bowling control",
+        "CSK: Chepauk spin squeeze with layered options",
+        "Venue dynamic: par 195, dew 0.60, chase bias 0.55"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-12",
+      "match_date": "2026-04-06",
+      "home_team": "KKR",
+      "away_team": "PBKS",
+      "venue": "Eden Gardens",
+      "insight_commentary": "KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.50 and chasing bias 0.48 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "KKR: Power-hitting ceiling on true surfaces",
+        "PBKS: Indian batting core in strong form",
+        "Venue dynamic: par 175, dew 0.50, chase bias 0.48"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-13",
+      "match_date": "2026-04-07",
+      "home_team": "RR",
+      "away_team": "MI",
+      "venue": "Barsapara Cricket Stadium",
+      "insight_commentary": "RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 170; dew factor 0.55 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RR: Indian top-order strike-rate potential",
+        "MI: High-end pace trio for powerplay and death",
+        "Venue dynamic: par 170, dew 0.55, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-14",
+      "match_date": "2026-04-08",
+      "home_team": "DC",
+      "away_team": "GT",
+      "venue": "Arun Jaitley Stadium",
+      "insight_commentary": "Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.30 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "DC: Aggressive batting intent around anchor options",
+        "GT: Consistent top-order run engine",
+        "Venue dynamic: par 175, dew 0.30, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-15",
+      "match_date": "2026-04-09",
+      "home_team": "KKR",
+      "away_team": "LSG",
+      "venue": "Eden Gardens",
+      "insight_commentary": "KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.50 and chasing bias 0.48 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "KKR: Power-hitting ceiling on true surfaces",
+        "LSG: Bowling variety across pace and spin",
+        "Venue dynamic: par 175, dew 0.50, chase bias 0.48"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-16",
+      "match_date": "2026-04-10",
+      "home_team": "RR",
+      "away_team": "RCB",
+      "venue": "Barsapara Cricket Stadium",
+      "insight_commentary": "RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 170; dew factor 0.55 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RR: Indian top-order strike-rate potential",
+        "RCB: Improved powerplay bowling control",
+        "Venue dynamic: par 170, dew 0.55, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-17",
+      "match_date": "2026-04-11",
+      "home_team": "PBKS",
+      "away_team": "SRH",
+      "venue": "Maharaja Yadavindra Singh International Cricket Stadium",
+      "insight_commentary": "PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 180; dew factor 0.35 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "PBKS: Indian batting core in strong form",
+        "SRH: Explosive top-order scoring bands",
+        "Venue dynamic: par 180, dew 0.35, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-18",
+      "match_date": "2026-04-11",
+      "home_team": "CSK",
+      "away_team": "DC",
+      "venue": "MA Chidambaram Stadium",
+      "insight_commentary": "Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. Spin-friendly conditions reward rotation and matchup management against quality spin. Expected par first innings is around 165; dew factor 0.35 and chasing bias 0.42 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "CSK: Chepauk spin squeeze with layered options",
+        "DC: Aggressive batting intent around anchor options",
+        "Venue dynamic: par 165, dew 0.35, chase bias 0.42"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-19",
+      "match_date": "2026-04-12",
+      "home_team": "LSG",
+      "away_team": "GT",
+      "venue": "BRSABV Ekana Cricket Stadium",
+      "insight_commentary": "LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. Bowling-friendly conditions amplify powerplay wicket value and disciplined hard lengths. Expected par first innings is around 165; dew factor 0.40 and chasing bias 0.45 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "LSG: Bowling variety across pace and spin",
+        "GT: Consistent top-order run engine",
+        "Venue dynamic: par 165, dew 0.40, chase bias 0.45"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-20",
+      "match_date": "2026-04-12",
+      "home_team": "MI",
+      "away_team": "RCB",
+      "venue": "Wankhede Stadium",
+      "insight_commentary": "Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 175; dew factor 0.55 and chasing bias 0.58 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "MI: High-end pace trio for powerplay and death",
+        "RCB: Improved powerplay bowling control",
+        "Venue dynamic: par 175, dew 0.55, chase bias 0.58"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-21",
+      "match_date": "2026-04-13",
+      "home_team": "SRH",
+      "away_team": "RR",
+      "venue": "Rajiv Gandhi International Stadium",
+      "insight_commentary": "SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 180; dew factor 0.50 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "SRH: Explosive top-order scoring bands",
+        "RR: Indian top-order strike-rate potential",
+        "Venue dynamic: par 180, dew 0.50, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-22",
+      "match_date": "2026-04-14",
+      "home_team": "CSK",
+      "away_team": "KKR",
+      "venue": "MA Chidambaram Stadium",
+      "insight_commentary": "Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. Spin-friendly conditions reward rotation and matchup management against quality spin. Expected par first innings is around 165; dew factor 0.35 and chasing bias 0.42 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "CSK: Chepauk spin squeeze with layered options",
+        "KKR: Power-hitting ceiling on true surfaces",
+        "Venue dynamic: par 165, dew 0.35, chase bias 0.42"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-23",
+      "match_date": "2026-04-15",
+      "home_team": "RCB",
+      "away_team": "LSG",
+      "venue": "M Chinnaswamy Stadium",
+      "insight_commentary": "RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 195; dew factor 0.60 and chasing bias 0.55 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RCB: Improved powerplay bowling control",
+        "LSG: Bowling variety across pace and spin",
+        "Venue dynamic: par 195, dew 0.60, chase bias 0.55"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-24",
+      "match_date": "2026-04-16",
+      "home_team": "MI",
+      "away_team": "PBKS",
+      "venue": "Wankhede Stadium",
+      "insight_commentary": "Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 175; dew factor 0.55 and chasing bias 0.58 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "MI: High-end pace trio for powerplay and death",
+        "PBKS: Indian batting core in strong form",
+        "Venue dynamic: par 175, dew 0.55, chase bias 0.58"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-25",
+      "match_date": "2026-04-17",
+      "home_team": "GT",
+      "away_team": "KKR",
+      "venue": "Narendra Modi Stadium",
+      "insight_commentary": "Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.40 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "GT: Consistent top-order run engine",
+        "KKR: Power-hitting ceiling on true surfaces",
+        "Venue dynamic: par 175, dew 0.40, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-26",
+      "match_date": "2026-04-18",
+      "home_team": "RCB",
+      "away_team": "DC",
+      "venue": "M Chinnaswamy Stadium",
+      "insight_commentary": "RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 195; dew factor 0.60 and chasing bias 0.55 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RCB: Improved powerplay bowling control",
+        "DC: Aggressive batting intent around anchor options",
+        "Venue dynamic: par 195, dew 0.60, chase bias 0.55"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-27",
+      "match_date": "2026-04-18",
+      "home_team": "SRH",
+      "away_team": "CSK",
+      "venue": "Rajiv Gandhi International Stadium",
+      "insight_commentary": "SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 180; dew factor 0.50 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "SRH: Explosive top-order scoring bands",
+        "CSK: Chepauk spin squeeze with layered options",
+        "Venue dynamic: par 180, dew 0.50, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-28",
+      "match_date": "2026-04-19",
+      "home_team": "KKR",
+      "away_team": "RR",
+      "venue": "Eden Gardens",
+      "insight_commentary": "KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.50 and chasing bias 0.48 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "KKR: Power-hitting ceiling on true surfaces",
+        "RR: Indian top-order strike-rate potential",
+        "Venue dynamic: par 175, dew 0.50, chase bias 0.48"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-29",
+      "match_date": "2026-04-19",
+      "home_team": "PBKS",
+      "away_team": "LSG",
+      "venue": "Maharaja Yadavindra Singh International Cricket Stadium",
+      "insight_commentary": "PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 180; dew factor 0.35 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "PBKS: Indian batting core in strong form",
+        "LSG: Bowling variety across pace and spin",
+        "Venue dynamic: par 180, dew 0.35, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-30",
+      "match_date": "2026-04-20",
+      "home_team": "GT",
+      "away_team": "MI",
+      "venue": "Narendra Modi Stadium",
+      "insight_commentary": "Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.40 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "GT: Consistent top-order run engine",
+        "MI: High-end pace trio for powerplay and death",
+        "Venue dynamic: par 175, dew 0.40, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-31",
+      "match_date": "2026-04-21",
+      "home_team": "SRH",
+      "away_team": "DC",
+      "venue": "Rajiv Gandhi International Stadium",
+      "insight_commentary": "SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 180; dew factor 0.50 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "SRH: Explosive top-order scoring bands",
+        "DC: Aggressive batting intent around anchor options",
+        "Venue dynamic: par 180, dew 0.50, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-32",
+      "match_date": "2026-04-22",
+      "home_team": "LSG",
+      "away_team": "RR",
+      "venue": "BRSABV Ekana Cricket Stadium",
+      "insight_commentary": "LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. Bowling-friendly conditions amplify powerplay wicket value and disciplined hard lengths. Expected par first innings is around 165; dew factor 0.40 and chasing bias 0.45 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "LSG: Bowling variety across pace and spin",
+        "RR: Indian top-order strike-rate potential",
+        "Venue dynamic: par 165, dew 0.40, chase bias 0.45"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-33",
+      "match_date": "2026-04-23",
+      "home_team": "MI",
+      "away_team": "CSK",
+      "venue": "Wankhede Stadium",
+      "insight_commentary": "Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 175; dew factor 0.55 and chasing bias 0.58 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "MI: High-end pace trio for powerplay and death",
+        "CSK: Chepauk spin squeeze with layered options",
+        "Venue dynamic: par 175, dew 0.55, chase bias 0.58"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-34",
+      "match_date": "2026-04-24",
+      "home_team": "RCB",
+      "away_team": "GT",
+      "venue": "M Chinnaswamy Stadium",
+      "insight_commentary": "RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 195; dew factor 0.60 and chasing bias 0.55 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RCB: Improved powerplay bowling control",
+        "GT: Consistent top-order run engine",
+        "Venue dynamic: par 195, dew 0.60, chase bias 0.55"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-35",
+      "match_date": "2026-04-25",
+      "home_team": "DC",
+      "away_team": "PBKS",
+      "venue": "Arun Jaitley Stadium",
+      "insight_commentary": "Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.30 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "DC: Aggressive batting intent around anchor options",
+        "PBKS: Indian batting core in strong form",
+        "Venue dynamic: par 175, dew 0.30, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-36",
+      "match_date": "2026-04-25",
+      "home_team": "RR",
+      "away_team": "SRH",
+      "venue": "Sawai Mansingh Stadium",
+      "insight_commentary": "RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 170; dew factor 0.30 and chasing bias 0.48 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RR: Indian top-order strike-rate potential",
+        "SRH: Explosive top-order scoring bands",
+        "Venue dynamic: par 170, dew 0.30, chase bias 0.48"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-37",
+      "match_date": "2026-04-26",
+      "home_team": "CSK",
+      "away_team": "GT",
+      "venue": "MA Chidambaram Stadium",
+      "insight_commentary": "Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. Spin-friendly conditions reward rotation and matchup management against quality spin. Expected par first innings is around 165; dew factor 0.35 and chasing bias 0.42 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "CSK: Chepauk spin squeeze with layered options",
+        "GT: Consistent top-order run engine",
+        "Venue dynamic: par 165, dew 0.35, chase bias 0.42"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-38",
+      "match_date": "2026-04-26",
+      "home_team": "LSG",
+      "away_team": "KKR",
+      "venue": "BRSABV Ekana Cricket Stadium",
+      "insight_commentary": "LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. Bowling-friendly conditions amplify powerplay wicket value and disciplined hard lengths. Expected par first innings is around 165; dew factor 0.40 and chasing bias 0.45 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "LSG: Bowling variety across pace and spin",
+        "KKR: Power-hitting ceiling on true surfaces",
+        "Venue dynamic: par 165, dew 0.40, chase bias 0.45"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-39",
+      "match_date": "2026-04-27",
+      "home_team": "DC",
+      "away_team": "RCB",
+      "venue": "Arun Jaitley Stadium",
+      "insight_commentary": "Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.30 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "DC: Aggressive batting intent around anchor options",
+        "RCB: Improved powerplay bowling control",
+        "Venue dynamic: par 175, dew 0.30, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-40",
+      "match_date": "2026-04-28",
+      "home_team": "PBKS",
+      "away_team": "RR",
+      "venue": "Maharaja Yadavindra Singh International Cricket Stadium",
+      "insight_commentary": "PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 180; dew factor 0.35 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "PBKS: Indian batting core in strong form",
+        "RR: Indian top-order strike-rate potential",
+        "Venue dynamic: par 180, dew 0.35, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-41",
+      "match_date": "2026-04-29",
+      "home_team": "MI",
+      "away_team": "SRH",
+      "venue": "Wankhede Stadium",
+      "insight_commentary": "Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 175; dew factor 0.55 and chasing bias 0.58 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "MI: High-end pace trio for powerplay and death",
+        "SRH: Explosive top-order scoring bands",
+        "Venue dynamic: par 175, dew 0.55, chase bias 0.58"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-42",
+      "match_date": "2026-04-30",
+      "home_team": "GT",
+      "away_team": "RCB",
+      "venue": "Narendra Modi Stadium",
+      "insight_commentary": "Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.40 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "GT: Consistent top-order run engine",
+        "RCB: Improved powerplay bowling control",
+        "Venue dynamic: par 175, dew 0.40, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-43",
+      "match_date": "2026-05-01",
+      "home_team": "RR",
+      "away_team": "DC",
+      "venue": "Sawai Mansingh Stadium",
+      "insight_commentary": "RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 170; dew factor 0.30 and chasing bias 0.48 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RR: Indian top-order strike-rate potential",
+        "DC: Aggressive batting intent around anchor options",
+        "Venue dynamic: par 170, dew 0.30, chase bias 0.48"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-44",
+      "match_date": "2026-05-02",
+      "home_team": "CSK",
+      "away_team": "MI",
+      "venue": "MA Chidambaram Stadium",
+      "insight_commentary": "Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. Spin-friendly conditions reward rotation and matchup management against quality spin. Expected par first innings is around 165; dew factor 0.35 and chasing bias 0.42 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "CSK: Chepauk spin squeeze with layered options",
+        "MI: High-end pace trio for powerplay and death",
+        "Venue dynamic: par 165, dew 0.35, chase bias 0.42"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-45",
+      "match_date": "2026-05-03",
+      "home_team": "SRH",
+      "away_team": "KKR",
+      "venue": "Rajiv Gandhi International Stadium",
+      "insight_commentary": "SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 180; dew factor 0.50 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "SRH: Explosive top-order scoring bands",
+        "KKR: Power-hitting ceiling on true surfaces",
+        "Venue dynamic: par 180, dew 0.50, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-46",
+      "match_date": "2026-05-03",
+      "home_team": "GT",
+      "away_team": "PBKS",
+      "venue": "Narendra Modi Stadium",
+      "insight_commentary": "Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.40 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "GT: Consistent top-order run engine",
+        "PBKS: Indian batting core in strong form",
+        "Venue dynamic: par 175, dew 0.40, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-47",
+      "match_date": "2026-05-04",
+      "home_team": "MI",
+      "away_team": "LSG",
+      "venue": "Wankhede Stadium",
+      "insight_commentary": "Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 175; dew factor 0.55 and chasing bias 0.58 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "MI: High-end pace trio for powerplay and death",
+        "LSG: Bowling variety across pace and spin",
+        "Venue dynamic: par 175, dew 0.55, chase bias 0.58"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-48",
+      "match_date": "2026-05-05",
+      "home_team": "DC",
+      "away_team": "CSK",
+      "venue": "Arun Jaitley Stadium",
+      "insight_commentary": "Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.30 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "DC: Aggressive batting intent around anchor options",
+        "CSK: Chepauk spin squeeze with layered options",
+        "Venue dynamic: par 175, dew 0.30, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-49",
+      "match_date": "2026-05-06",
+      "home_team": "SRH",
+      "away_team": "PBKS",
+      "venue": "Rajiv Gandhi International Stadium",
+      "insight_commentary": "SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 180; dew factor 0.50 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "SRH: Explosive top-order scoring bands",
+        "PBKS: Indian batting core in strong form",
+        "Venue dynamic: par 180, dew 0.50, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-50",
+      "match_date": "2026-05-07",
+      "home_team": "LSG",
+      "away_team": "RCB",
+      "venue": "BRSABV Ekana Cricket Stadium",
+      "insight_commentary": "LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. Bowling-friendly conditions amplify powerplay wicket value and disciplined hard lengths. Expected par first innings is around 165; dew factor 0.40 and chasing bias 0.45 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "LSG: Bowling variety across pace and spin",
+        "RCB: Improved powerplay bowling control",
+        "Venue dynamic: par 165, dew 0.40, chase bias 0.45"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-51",
+      "match_date": "2026-05-08",
+      "home_team": "DC",
+      "away_team": "KKR",
+      "venue": "Arun Jaitley Stadium",
+      "insight_commentary": "Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.30 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "DC: Aggressive batting intent around anchor options",
+        "KKR: Power-hitting ceiling on true surfaces",
+        "Venue dynamic: par 175, dew 0.30, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-52",
+      "match_date": "2026-05-09",
+      "home_team": "RR",
+      "away_team": "GT",
+      "venue": "Sawai Mansingh Stadium",
+      "insight_commentary": "RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 170; dew factor 0.30 and chasing bias 0.48 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RR: Indian top-order strike-rate potential",
+        "GT: Consistent top-order run engine",
+        "Venue dynamic: par 170, dew 0.30, chase bias 0.48"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-53",
+      "match_date": "2026-05-10",
+      "home_team": "CSK",
+      "away_team": "LSG",
+      "venue": "MA Chidambaram Stadium",
+      "insight_commentary": "Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. Spin-friendly conditions reward rotation and matchup management against quality spin. Expected par first innings is around 165; dew factor 0.35 and chasing bias 0.42 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "CSK: Chepauk spin squeeze with layered options",
+        "LSG: Bowling variety across pace and spin",
+        "Venue dynamic: par 165, dew 0.35, chase bias 0.42"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-54",
+      "match_date": "2026-05-10",
+      "home_team": "RCB",
+      "away_team": "MI",
+      "venue": "Shaheed Veer Narayan Singh International Cricket Stadium",
+      "insight_commentary": "RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 170; dew factor 0.35 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RCB: Improved powerplay bowling control",
+        "MI: High-end pace trio for powerplay and death",
+        "Venue dynamic: par 170, dew 0.35, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-55",
+      "match_date": "2026-05-11",
+      "home_team": "PBKS",
+      "away_team": "DC",
+      "venue": "HPCA Stadium",
+      "insight_commentary": "PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 180; dew factor 0.20 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "PBKS: Indian batting core in strong form",
+        "DC: Aggressive batting intent around anchor options",
+        "Venue dynamic: par 180, dew 0.20, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-56",
+      "match_date": "2026-05-12",
+      "home_team": "GT",
+      "away_team": "SRH",
+      "venue": "Narendra Modi Stadium",
+      "insight_commentary": "Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.40 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "GT: Consistent top-order run engine",
+        "SRH: Explosive top-order scoring bands",
+        "Venue dynamic: par 175, dew 0.40, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-57",
+      "match_date": "2026-05-13",
+      "home_team": "RCB",
+      "away_team": "KKR",
+      "venue": "Shaheed Veer Narayan Singh International Cricket Stadium",
+      "insight_commentary": "RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 170; dew factor 0.35 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RCB: Improved powerplay bowling control",
+        "KKR: Power-hitting ceiling on true surfaces",
+        "Venue dynamic: par 170, dew 0.35, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-58",
+      "match_date": "2026-05-14",
+      "home_team": "PBKS",
+      "away_team": "MI",
+      "venue": "HPCA Stadium",
+      "insight_commentary": "PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 180; dew factor 0.20 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "PBKS: Indian batting core in strong form",
+        "MI: High-end pace trio for powerplay and death",
+        "Venue dynamic: par 180, dew 0.20, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-59",
+      "match_date": "2026-05-15",
+      "home_team": "LSG",
+      "away_team": "CSK",
+      "venue": "BRSABV Ekana Cricket Stadium",
+      "insight_commentary": "LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. Bowling-friendly conditions amplify powerplay wicket value and disciplined hard lengths. Expected par first innings is around 165; dew factor 0.40 and chasing bias 0.45 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "LSG: Bowling variety across pace and spin",
+        "CSK: Chepauk spin squeeze with layered options",
+        "Venue dynamic: par 165, dew 0.40, chase bias 0.45"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-60",
+      "match_date": "2026-05-16",
+      "home_team": "KKR",
+      "away_team": "GT",
+      "venue": "Eden Gardens",
+      "insight_commentary": "KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.50 and chasing bias 0.48 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "KKR: Power-hitting ceiling on true surfaces",
+        "GT: Consistent top-order run engine",
+        "Venue dynamic: par 175, dew 0.50, chase bias 0.48"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-61",
+      "match_date": "2026-05-17",
+      "home_team": "PBKS",
+      "away_team": "RCB",
+      "venue": "HPCA Stadium",
+      "insight_commentary": "PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 180; dew factor 0.20 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "PBKS: Indian batting core in strong form",
+        "RCB: Improved powerplay bowling control",
+        "Venue dynamic: par 180, dew 0.20, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-62",
+      "match_date": "2026-05-17",
+      "home_team": "DC",
+      "away_team": "RR",
+      "venue": "Arun Jaitley Stadium",
+      "insight_commentary": "Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.30 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "DC: Aggressive batting intent around anchor options",
+        "RR: Indian top-order strike-rate potential",
+        "Venue dynamic: par 175, dew 0.30, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-63",
+      "match_date": "2026-05-18",
+      "home_team": "CSK",
+      "away_team": "SRH",
+      "venue": "MA Chidambaram Stadium",
+      "insight_commentary": "Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. Spin-friendly conditions reward rotation and matchup management against quality spin. Expected par first innings is around 165; dew factor 0.35 and chasing bias 0.42 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "CSK: Chepauk spin squeeze with layered options",
+        "SRH: Explosive top-order scoring bands",
+        "Venue dynamic: par 165, dew 0.35, chase bias 0.42"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-64",
+      "match_date": "2026-05-19",
+      "home_team": "RR",
+      "away_team": "LSG",
+      "venue": "Sawai Mansingh Stadium",
+      "insight_commentary": "RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 170; dew factor 0.30 and chasing bias 0.48 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "RR: Indian top-order strike-rate potential",
+        "LSG: Bowling variety across pace and spin",
+        "Venue dynamic: par 170, dew 0.30, chase bias 0.48"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-65",
+      "match_date": "2026-05-20",
+      "home_team": "KKR",
+      "away_team": "MI",
+      "venue": "Eden Gardens",
+      "insight_commentary": "KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.50 and chasing bias 0.48 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "KKR: Power-hitting ceiling on true surfaces",
+        "MI: High-end pace trio for powerplay and death",
+        "Venue dynamic: par 175, dew 0.50, chase bias 0.48"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-66",
+      "match_date": "2026-05-21",
+      "home_team": "GT",
+      "away_team": "CSK",
+      "venue": "Narendra Modi Stadium",
+      "insight_commentary": "Experts generally describe GT as playoff-caliber and balanced, powered by reliable top-order runs and a bowling group that tends to absorb disruptions. Analysts frame CSK as a spin-first side that can still control games on slower surfaces, with concern that conservative powerplay starts can create scoreboard pressure later. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.40 and chasing bias 0.50 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "GT: Consistent top-order run engine",
+        "CSK: Chepauk spin squeeze with layered options",
+        "Venue dynamic: par 175, dew 0.40, chase bias 0.50"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-67",
+      "match_date": "2026-05-22",
+      "home_team": "SRH",
+      "away_team": "RCB",
+      "venue": "Rajiv Gandhi International Stadium",
+      "insight_commentary": "SRH continue to be tagged as one of the most explosive batting units, while transitions between batting and bowling phases are treated as the key swing factor. RCB are seen as more balanced than prior cycles due to stronger new-ball options, but batting volatility remains a recurring caution. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 180; dew factor 0.50 and chasing bias 0.52 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "SRH: Explosive top-order scoring bands",
+        "RCB: Improved powerplay bowling control",
+        "Venue dynamic: par 180, dew 0.50, chase bias 0.52"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-68",
+      "match_date": "2026-05-23",
+      "home_team": "LSG",
+      "away_team": "PBKS",
+      "venue": "BRSABV Ekana Cricket Stadium",
+      "insight_commentary": "LSG are typically viewed as strategically flexible with broad bowling options and a high-upside top six, but recurrent questions remain around opening stability. PBKS commentary now emphasizes their Indian core as a differentiator, with clearer role ownership and a more coherent tactical identity. Bowling-friendly conditions amplify powerplay wicket value and disciplined hard lengths. Expected par first innings is around 165; dew factor 0.40 and chasing bias 0.45 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "LSG: Bowling variety across pace and spin",
+        "PBKS: Indian batting core in strong form",
+        "Venue dynamic: par 165, dew 0.40, chase bias 0.45"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-69",
+      "match_date": "2026-05-24",
+      "home_team": "MI",
+      "away_team": "RR",
+      "venue": "Wankhede Stadium",
+      "insight_commentary": "Panels repeatedly point to MI's peaking pattern: elite pace quality and tournament know-how often make them dangerous at the business end. RR are framed as tactically brave: Indian top-order heavy and bowling-refreshed, with upside if key stars remain available and middle-over plans hold. Batting-friendly conditions raise the ceiling for top-order intent and death-over hitting. Expected par first innings is around 175; dew factor 0.55 and chasing bias 0.58 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "MI: High-end pace trio for powerplay and death",
+        "RR: Indian top-order strike-rate potential",
+        "Venue dynamic: par 175, dew 0.55, chase bias 0.58"
+      ]
+    },
+    {
+      "match_id": "2026-IPL-70",
+      "match_date": "2026-05-24",
+      "home_team": "KKR",
+      "away_team": "DC",
+      "venue": "Eden Gardens",
+      "insight_commentary": "KKR are seen as a momentum team with retained core quality, though analysts debate whether batting tempo can stay as explosive after personnel churn. Commentary positions DC as high-variance: explosive top-order options and improved pace resources, but strongly dependent on turning early momentum into middle-over control. Neutral surfaces shift edge to middle-over execution and death control. Expected par first innings is around 175; dew factor 0.50 and chasing bias 0.48 keep toss strategy venue-sensitive.",
+      "watch_for": [
+        "KKR: Power-hitting ceiling on true surfaces",
+        "DC: Aggressive batting intent around anchor options",
+        "Venue dynamic: par 175, dew 0.50, chase bias 0.48"
+      ]
+    }
+  ]
+}
