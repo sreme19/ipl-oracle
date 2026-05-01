@@ -9,24 +9,139 @@ from datetime import datetime
 import typer
 from rich.console import Console
 from rich.panel import Panel
+from rich.rule import Rule
 from rich.table import Table
 from rich.text import Text
 
 from .agents.linkedin import LinkedInAgent
 from .agents.narrator import NarratorAgent
-from .io import DataLoader, StateStore
+from .io import CricinfoFetchError, DataLoader, StateStore, fetch_match_result
 from .orchestrator import Orchestrator
 from .schemas import OracleRequest
 
-app = typer.Typer(help="Multi-agent IPL XI optimizer.", add_completion=False)
+app = typer.Typer(
+    help="Multi-agent IPL XI optimizer.",
+    add_completion=False,
+    invoke_without_command=True,
+)
 console = Console()
 
+_TEAM_CODES = ["RCB", "GT", "MI", "CSK", "KKR", "DC", "PBKS", "RR", "SRH", "LSG"]
 
-def _parse_date(s: str | None) -> Date | None:
-    if not s:
-        return None
-    return datetime.fromisoformat(s).date()
 
+# ---------------------------------------------------------------------------
+# Default entrypoint — interactive prompt when no subcommand is given
+# ---------------------------------------------------------------------------
+
+@app.callback()
+def main(ctx: typer.Context) -> None:
+    if ctx.invoked_subcommand is None:
+        _interactive()
+
+
+def _interactive() -> None:
+    console.print()
+    console.print(Rule("[bold cyan]IPL ORACLE[/bold cyan]", style="cyan"))
+    console.print()
+    console.print("  [bold]What would you like to do?[/bold]\n")
+    console.print("   [cyan][1][/cyan]  [bold]Pre-match strategy[/bold]")
+    console.print("        Recommend XI, toss & win probability for an upcoming fixture\n")
+    console.print("   [cyan][2][/cyan]  [bold]Post-match RCA[/bold]")
+    console.print("        Analyse why a result differed from the oracle's prediction\n")
+
+    mode = typer.prompt("Mode", prompt_suffix=" [1/2]: ").strip()
+    while mode not in ("1", "2"):
+        console.print("[red]Enter 1 or 2.[/red]")
+        mode = typer.prompt("Mode", prompt_suffix=" [1/2]: ").strip()
+
+    console.print()
+    console.print(f"  Valid team codes: [dim]{', '.join(_TEAM_CODES)}[/dim]")
+    team = typer.prompt("  Protagonist team code").strip().upper()
+    opponent = typer.prompt("  Opponent team code").strip().upper()
+    match_date = typer.prompt("  Match date (YYYY-MM-DD)").strip()
+
+    console.print()
+
+    if mode == "1":
+        _run_interactive(team, opponent, match_date)
+    else:
+        _retro_interactive(team, opponent, match_date)
+
+
+def _run_interactive(team: str, opponent: str, match_date: str) -> None:
+    loader = DataLoader(None)
+    state = StateStore()
+    narrator = NarratorAgent()
+    orch = Orchestrator(loader=loader, state=state, narrator=narrator)
+    request = OracleRequest(
+        team=team,
+        opponent=opponent,
+        match_date=_parse_date(match_date),
+    )
+    try:
+        result = orch.run(request)
+    except Exception as exc:  # noqa: BLE001
+        console.print(f"[red]error:[/red] {exc}")
+        raise typer.Exit(1) from exc
+
+    _render(result, json_out=False, no_narrative=False)
+    if result.run_id:
+        console.print(f"[dim]run logged → {result.run_id}[/dim]")
+
+
+def _retro_interactive(team: str, opponent: str, match_date: str) -> None:
+    console.print("  [bold]Fetch actual result automatically from Cricsheet?[/bold]")
+    auto = typer.confirm("  Auto-fetch", default=True)
+
+    parsed_date = _parse_date(match_date)
+    actual_toss: str | None = None
+    runs_for: int | None = None
+    runs_against: int | None = None
+    won = False
+
+    if auto and parsed_date:
+        console.print(f"[dim]  Fetching {team} vs {opponent} on {parsed_date} from Cricsheet…[/dim]")
+        try:
+            live = fetch_match_result(team, opponent, parsed_date)
+            actual_toss = live.toss
+            runs_for = live.runs_for
+            runs_against = live.runs_against
+            won = live.won
+            console.print(
+                f"  [green]Fetched:[/green] toss={actual_toss}, "
+                f"runs_for={runs_for}, runs_against={runs_against}, "
+                f"{'won' if won else 'lost'}\n"
+            )
+        except CricinfoFetchError as exc:
+            console.print(f"  [yellow]Auto-fetch failed:[/yellow] {exc}")
+            console.print("  Falling back to manual entry.\n")
+
+    if actual_toss is None:
+        actual_toss = typer.prompt("  Actual toss (bat/bowl)").strip().lower()
+        won = typer.confirm("  Did the team win?", default=False)
+        rf = typer.prompt("  Runs scored (leave blank to skip)", default="").strip()
+        ra = typer.prompt("  Runs conceded (leave blank to skip)", default="").strip()
+        runs_for = int(rf) if rf.isdigit() else None
+        runs_against = int(ra) if ra.isdigit() else None
+
+    loader = DataLoader(None)
+    state = StateStore()
+    orch = Orchestrator(loader=loader, state=state, narrator=None)
+    request = OracleRequest(
+        team=team, opponent=opponent, match_date=parsed_date
+    )
+    try:
+        result = orch.run(request)
+    except Exception as exc:  # noqa: BLE001
+        console.print(f"[red]error:[/red] {exc}")
+        raise typer.Exit(1) from exc
+
+    _render_retro(result, actual_toss, won, runs_for, runs_against, log_cal=True, state=state)
+
+
+# ---------------------------------------------------------------------------
+# run command
+# ---------------------------------------------------------------------------
 
 @app.command()
 def run(
@@ -40,10 +155,10 @@ def run(
     sample_size: int = typer.Option(10000, "--sample-size", help="Monte Carlo rollouts"),
     json_out: bool = typer.Option(False, "--json", help="Emit full JSON trace alongside narrative"),
     no_narrative: bool = typer.Option(False, "--no-narrative", help="Skip the Anthropic call"),
-    linkedin: bool = typer.Option(False, "--linkedin", help="Also emit a LinkedIn-style post"),
+    linkedin_post: bool = typer.Option(False, "--linkedin", help="Also emit a LinkedIn-style post"),
     data_dir: str | None = typer.Option(None, "--data-dir", help="Override data directory"),
 ):
-    """Run the multi-agent pipeline and print a natural-language verdict."""
+    """Run the multi-agent pipeline and print a structured strategy report."""
     loader = DataLoader(data_dir)
     state = StateStore()
     narrator = None if no_narrative else NarratorAgent()
@@ -69,69 +184,111 @@ def run(
     if result.run_id:
         console.print(f"[dim]run logged → {result.run_id}[/dim]")
 
-    if linkedin:
+    if linkedin_post:
         post = LinkedInAgent().compose(result)
         console.print(Panel(post, title="LinkedIn post"))
 
 
+# ---------------------------------------------------------------------------
+# Structured pre-match report renderer
+# ---------------------------------------------------------------------------
+
 def _render(result, json_out: bool, no_narrative: bool) -> None:
     fx = result.fixture
-    console.print(
-        Panel(
-            f"[bold]{fx.home_team}[/bold] vs [bold]{fx.away_team}[/bold]  "
-            f"@ {fx.venue}  ({fx.match_date.isoformat()})",
-            title="Fixture",
-        )
-    )
-
-    table = Table(title=f"Predicted XI — {result.opponent_team}")
-    table.add_column("#", justify="right")
-    table.add_column("Name")
-    table.add_column("Role")
-    for i, p in enumerate(result.opponent_forecast.predicted_xi.selected_xi, 1):
-        table.add_row(str(i), p.name, p.role.value)
-    console.print(table)
-
-    table = Table(title=f"Recommended XI — {result.own_team}")
-    table.add_column("#", justify="right")
-    table.add_column("Name")
-    table.add_column("Role")
-    table.add_column("Reason")
-    for i, p in enumerate(result.own_xi.selected_xi, 1):
-        reason = result.own_xi.slot_reasons.get(p.player_id, "")
-        table.add_row(str(i), p.name, p.role.value, reason)
-    console.print(table)
-
     wp = result.win_probability
-    console.print(
-        Panel(
-            f"win prob: [bold]{wp.win_probability:.1%}[/bold] "
-            f"(95% CI {wp.confidence_interval[0]:.1%} – {wp.confidence_interval[1]:.1%})\n"
-            f"expected runs: {wp.expected_runs:.0f}  "
-            f"({wp.expected_runs_ci[0]:.0f} – {wp.expected_runs_ci[1]:.0f})\n"
-            f"toss: [bold]{result.toss.decision}[/bold] — {result.toss.rationale}\n"
-            f"mode: {result.own_xi.mode.value}",
-            title="Verdict",
-        )
-    )
+    toss = result.toss
 
-    notes = []
+    # ── Header ──────────────────────────────────────────────────────────────
+    console.print()
+    console.print(Rule("[bold]IPL ORACLE — PRE-MATCH STRATEGY REPORT[/bold]", style="cyan"))
+
+    # ── Fixture ─────────────────────────────────────────────────────────────
+    console.print()
+    console.print(Rule("FIXTURE", style="dim", align="left"))
+    console.print(
+        f"  [bold]{fx.home_team}[/bold] vs [bold]{fx.away_team}[/bold]"
+        f"  ·  {fx.venue}  ·  {fx.match_date.isoformat()}"
+    )
+    console.print(f"  Protagonist: [bold cyan]{result.own_team}[/bold cyan]  "
+                  f"Opponent: [bold]{result.opponent_team}[/bold]")
+
+    # ── Verdict ─────────────────────────────────────────────────────────────
+    console.print()
+    console.print(Rule("VERDICT", style="dim", align="left"))
+    toss_label = "BAT FIRST" if toss.decision == "bat" else "BOWL FIRST"
+    toss_style = "green" if toss.decision == "bat" else "yellow"
+    console.print(
+        f"  Win Probability  [bold]{wp.win_probability:.1%}[/bold]  "
+        f"[dim](95% CI {wp.confidence_interval[0]:.1%} – {wp.confidence_interval[1]:.1%})[/dim]"
+    )
+    console.print(
+        f"  Expected Runs    [bold]{wp.expected_runs:.0f}[/bold]  "
+        f"[dim]({wp.expected_runs_ci[0]:.0f} – {wp.expected_runs_ci[1]:.0f})[/dim]"
+    )
+    console.print(
+        f"  Toss             [{toss_style}][bold]{toss_label}[/bold][/{toss_style}]  "
+        f"[dim](bat {toss.win_prob_batting_first:.1%} vs bowl {toss.win_prob_bowling_first:.1%})[/dim]"
+    )
+    console.print(f"  Mode             [dim]{result.own_xi.mode.value}[/dim]")
+    console.print()
+    console.print(f"  [italic]{toss.rationale}[/italic]")
+
+    # ── Recommended XI ──────────────────────────────────────────────────────
+    console.print()
+    console.print(Rule(f"RECOMMENDED XI — {result.own_team}", style="dim", align="left"))
+    xi_table = Table(show_header=True, header_style="bold", box=None, padding=(0, 2))
+    xi_table.add_column("#", justify="right", style="dim")
+    xi_table.add_column("Name", min_width=22)
+    xi_table.add_column("Role", min_width=18)
+    xi_table.add_column("Selection Reason")
+    for i, p in enumerate(result.own_xi.selected_xi, 1):
+        reason = result.own_xi.slot_reasons.get(p.player_id, "—")
+        xi_table.add_row(str(i), p.name, p.role.value, reason)
+    console.print(xi_table)
+
+    # ── Opponent XI ─────────────────────────────────────────────────────────
+    console.print()
+    console.print(Rule(f"OPPONENT XI — {result.opponent_team} (PREDICTED)", style="dim", align="left"))
+    opp_table = Table(show_header=True, header_style="bold", box=None, padding=(0, 2))
+    opp_table.add_column("#", justify="right", style="dim")
+    opp_table.add_column("Name", min_width=22)
+    opp_table.add_column("Role")
+    for i, p in enumerate(result.opponent_forecast.predicted_xi.selected_xi, 1):
+        opp_table.add_row(str(i), p.name, p.role.value)
+    console.print(opp_table)
+
+    # ── Strategy Brief ──────────────────────────────────────────────────────
+    if not no_narrative and result.narrative:
+        console.print()
+        console.print(Rule("STRATEGY BRIEF", style="dim", align="left"))
+        for line in result.narrative.strip().splitlines():
+            console.print(f"  {line}")
+
+    # ── Constraint Warnings ─────────────────────────────────────────────────
+    warnings = []
     if result.own_xi.note:
-        notes.append(f"[bold]{result.own_team} XI:[/bold] {result.own_xi.note}")
+        warnings.append(f"[bold]{result.own_team} XI:[/bold] {result.own_xi.note}")
     if result.opponent_forecast.predicted_xi.note:
-        notes.append(
+        warnings.append(
             f"[bold]{result.opponent_team} XI:[/bold] {result.opponent_forecast.predicted_xi.note}"
         )
-    if notes:
-        console.print(Panel("\n".join(notes), title="[yellow]Constraint warnings[/yellow]"))
+    if warnings:
+        console.print()
+        console.print(Rule("[yellow]CONSTRAINT WARNINGS[/yellow]", style="yellow dim", align="left"))
+        for w in warnings:
+            console.print(f"  ⚠ {w}")
 
-    if not no_narrative and result.narrative:
-        console.print(Panel(result.narrative, title="Brief"))
+    console.print()
+    console.print(Rule(style="cyan"))
 
     if json_out:
         sys.stdout.write(result.model_dump_json(indent=2))
         sys.stdout.write("\n")
 
+
+# ---------------------------------------------------------------------------
+# retro command
+# ---------------------------------------------------------------------------
 
 @app.command()
 def retro(
@@ -139,10 +296,14 @@ def retro(
     opponent: str | None = typer.Option(None, "--opponent", "-o"),
     venue: str | None = typer.Option(None, "--venue", "-v"),
     match_date: str | None = typer.Option(None, "--match-date", "-d"),
-    actual_toss: str = typer.Option(..., "--actual-toss", help="What our team actually chose: bat | bowl"),
+    actual_toss: str | None = typer.Option(None, "--actual-toss", help="What our team actually chose: bat | bowl"),
     won: bool = typer.Option(False, "--won/--lost", help="Did our team win?"),
     runs_for: int | None = typer.Option(None, "--runs-for", help="Runs we scored (optional)"),
     runs_against: int | None = typer.Option(None, "--runs-against", help="Runs we conceded (optional)"),
+    fetch_result: bool = typer.Option(
+        False, "--fetch-result",
+        help="Auto-fetch toss, scores, and outcome from Cricsheet (requires --opponent and --match-date)",
+    ),
     sample_size: int = typer.Option(10000, "--sample-size"),
     log_calibration: bool = typer.Option(
         True, "--log-calibration/--no-log-calibration",
@@ -150,7 +311,34 @@ def retro(
     ),
     data_dir: str | None = typer.Option(None, "--data-dir"),
 ):
-    """Compare what the oracle would have recommended against the actual result."""
+    """Root cause analysis — compare oracle predictions against the actual result."""
+    if fetch_result:
+        if not opponent or not match_date:
+            console.print("[red]error:[/red] --fetch-result requires --opponent and --match-date")
+            raise typer.Exit(1)
+        parsed_date = _parse_date(match_date)
+        if parsed_date is None:
+            console.print("[red]error:[/red] --match-date must be in YYYY-MM-DD format")
+            raise typer.Exit(1)
+        console.print(f"[dim]Fetching result for {team} vs {opponent} on {parsed_date} from Cricsheet…[/dim]")
+        try:
+            live = fetch_match_result(team, opponent, parsed_date)
+        except CricinfoFetchError as exc:
+            console.print(f"[red]Cricsheet fetch failed:[/red] {exc}")
+            raise typer.Exit(1) from exc
+        actual_toss = live.toss
+        runs_for = live.runs_for
+        runs_against = live.runs_against
+        won = live.won
+        console.print(
+            f"[green]Fetched:[/green] {live.match_title} — "
+            f"toss={actual_toss}, runs_for={runs_for}, runs_against={runs_against}, "
+            f"{'won' if won else 'lost'}"
+        )
+
+    if actual_toss is None:
+        console.print("[red]error:[/red] --actual-toss is required (or use --fetch-result)")
+        raise typer.Exit(1)
     if actual_toss not in ("bat", "bowl"):
         console.print("[red]error:[/red] --actual-toss must be 'bat' or 'bowl'")
         raise typer.Exit(1)
@@ -171,108 +359,188 @@ def retro(
         console.print(f"[red]error:[/red] {exc}")
         raise typer.Exit(1) from exc
 
+    _render_retro(result, actual_toss, won, runs_for, runs_against, log_cal=log_calibration, state=state)
+
+
+# ---------------------------------------------------------------------------
+# Structured RCA renderer
+# ---------------------------------------------------------------------------
+
+def _render_retro(result, actual_toss: str, won: bool, runs_for: int | None,
+                  runs_against: int | None, log_cal: bool, state: StateStore) -> None:
     fx = result.fixture
     wp = result.win_probability
     toss = result.toss
     actual_wp = 1.0 if won else 0.0
     delta_pp = (wp.win_probability - actual_wp) * 100.0
 
+    # ── Header ──────────────────────────────────────────────────────────────
+    console.print()
+    console.print(Rule("[bold]IPL ORACLE — ROOT CAUSE ANALYSIS[/bold]", style="red"))
+
+    # ── Match Summary ────────────────────────────────────────────────────────
+    console.print()
+    console.print(Rule("MATCH SUMMARY", style="dim", align="left"))
+    result_label = "[green]WON[/green]" if won else "[red]LOST[/red]"
     console.print(
-        Panel(
-            f"[bold]{fx.home_team}[/bold] vs [bold]{fx.away_team}[/bold]  "
-            f"@ {fx.venue}  ({fx.match_date.isoformat()})\n"
-            f"Perspective: [bold]{result.own_team}[/bold]",
-            title="Retrospective",
-        )
+        f"  [bold]{fx.home_team}[/bold] vs [bold]{fx.away_team}[/bold]"
+        f"  ·  {fx.venue}  ·  {fx.match_date.isoformat()}"
+    )
+    console.print(
+        f"  Perspective: [bold cyan]{result.own_team}[/bold cyan]  ·  "
+        f"Result: {result_label}  ·  Toss: {actual_toss}"
     )
 
-    table = Table(title="Predicted vs Actual")
-    table.add_column("Metric")
-    table.add_column("Predicted")
-    table.add_column("Actual")
-    table.add_column("Delta")
+    # ── Prediction Accuracy ─────────────────────────────────────────────────
+    console.print()
+    console.print(Rule("PREDICTION ACCURACY", style="dim", align="left"))
+    table = Table(show_header=True, header_style="bold", box=None, padding=(0, 2))
+    table.add_column("Metric", min_width=14)
+    table.add_column("Predicted", justify="right", min_width=16)
+    table.add_column("Actual", justify="right", min_width=10)
+    table.add_column("Delta", justify="right")
+
+    delta_style = "green" if won == (wp.win_probability >= 0.5) else "red"
     table.add_row(
         "Outcome",
-        f"win-prob {wp.win_probability:.1%}",
+        f"win {wp.win_probability:.1%}",
         "Won" if won else "Lost",
-        f"{delta_pp:+.1f} pp"
-        if won == (wp.win_probability >= 0.5)
-        else f"[red]{delta_pp:+.1f} pp[/red]",
+        Text(f"{delta_pp:+.1f} pp", style=delta_style),
     )
     if runs_for is not None:
-        if actual_toss == "bat":
-            pred = wp.expected_runs
-        else:
-            pred = result.opponent_forecast.expected_score
+        pred_us = wp.expected_runs if actual_toss == "bat" else result.opponent_forecast.expected_score
+        d = runs_for - pred_us
         table.add_row(
             "Runs (us)",
-            f"{pred:.0f}",
+            f"{pred_us:.0f}",
             str(runs_for),
-            f"{runs_for - pred:+.0f}",
+            Text(f"{d:+.0f}", style="green" if d >= 0 else "red"),
         )
     if runs_against is not None:
-        if actual_toss == "bat":
-            pred = result.opponent_forecast.expected_score
-        else:
-            pred = wp.expected_runs
+        pred_them = result.opponent_forecast.expected_score if actual_toss == "bat" else wp.expected_runs
+        d = runs_against - pred_them
         table.add_row(
             "Runs (them)",
-            f"{pred:.0f}",
+            f"{pred_them:.0f}",
             str(runs_against),
-            f"{runs_against - pred:+.0f}",
+            Text(f"{d:+.0f}", style="red" if d > 0 else "green"),
         )
+    toss_match = toss.decision == actual_toss
     table.add_row(
-        "Toss",
+        "Toss call",
         toss.decision,
         actual_toss,
-        "[green]matched[/green]" if toss.decision == actual_toss else "[red]mismatched[/red]",
+        Text("✓ matched", style="green") if toss_match else Text("✗ mismatched", style="red"),
     )
     console.print(table)
 
-    diagnostics: list[str] = []
-    if toss.decision != actual_toss:
+    # ── What Went Wrong ──────────────────────────────────────────────────────
+    diagnostics: list[tuple[str, str]] = []  # (symbol+style, text)
+
+    if not toss_match:
         gap = abs(toss.win_prob_batting_first - toss.win_prob_bowling_first) * 100.0
-        diagnostics.append(
-            f"⚠ Toss mismatch — model preferred '{toss.decision}' "
-            f"(set {toss.win_prob_batting_first:.1%} vs chase {toss.win_prob_bowling_first:.1%}, "
-            f"gap {gap:.1f} pp). Choosing the other side likely cost win probability."
-        )
+        diagnostics.append((
+            "[yellow]⚠[/yellow]",
+            f"[bold]Toss decision mismatch[/bold] — model preferred '{toss.decision}' "
+            f"(bat {toss.win_prob_batting_first:.1%} vs bowl {toss.win_prob_bowling_first:.1%}, "
+            f"gap {gap:.1f} pp). Going the other way likely surrendered win probability."
+        ))
+
     if won and wp.win_probability < 0.5:
-        diagnostics.append(
-            f"✓ Upset win — model gave only {wp.win_probability:.1%}. "
-            "Calibration store will pull future predictions toward this outcome."
-        )
+        diagnostics.append((
+            "[green]✓[/green]",
+            f"[bold]Upset win[/bold] — model gave only {wp.win_probability:.1%}. "
+            "Calibration store will pull future estimates toward this outcome."
+        ))
     elif not won and wp.win_probability > 0.5:
-        diagnostics.append(
-            f"✗ Model overestimated — predicted {wp.win_probability:.1%} but lost. "
-            f"Inspect: opponent score forecast was {result.opponent_forecast.expected_score:.0f}, "
-            f"par {result.conditions.par_score:.0f}."
-        )
+        diagnostics.append((
+            "[red]✗[/red]",
+            f"[bold]Model overestimated win probability[/bold] — predicted {wp.win_probability:.1%} but lost. "
+            f"Opponent score forecast was {result.opponent_forecast.expected_score:.0f} "
+            f"(par {result.conditions.par_score:.0f}). "
+            "The run model and/or matchup edges were too optimistic."
+        ))
+
+    if runs_for is not None:
+        pred_us = wp.expected_runs if actual_toss == "bat" else result.opponent_forecast.expected_score
+        miss = runs_for - pred_us
+        if abs(miss) > 20:
+            diagnostics.append((
+                "[red]✗[/red]" if miss < 0 else "[yellow]⚠[/yellow]",
+                f"[bold]Batting model missed by {miss:+.0f} runs[/bold] — "
+                f"predicted {pred_us:.0f}, scored {runs_for}. "
+                + ("Batting underperformed the model's phase-by-phase projection." if miss < 0
+                   else "Batting overperformed — model was conservative.")
+            ))
+
     if runs_against is not None:
         opp_pred = result.opponent_forecast.expected_score
-        if runs_against > opp_pred + 25:
-            diagnostics.append(
-                f"✗ Conceded {runs_against - opp_pred:+.0f} above forecast — phase strategy miss. "
-                f"Weakest opponent batting phase was '{min(result.opponent_forecast.batting_phase_strengths, key=result.opponent_forecast.batting_phase_strengths.get)}'; "
-                "if you bowled medium-pace there instead of attacking, that's the leak."
+        over = runs_against - opp_pred
+        if over > 25:
+            weakest_phase = min(
+                result.opponent_forecast.batting_phase_strengths,
+                key=result.opponent_forecast.batting_phase_strengths.get,
             )
+            diagnostics.append((
+                "[red]✗[/red]",
+                f"[bold]Conceded {over:+.0f} above forecast[/bold] — bowling phase strategy leak. "
+                f"Opponent's weakest phase was '{weakest_phase}'; "
+                "aggressive pace bowling there instead of containing may have changed the outcome."
+            ))
+
     if result.own_xi.note:
-        diagnostics.append(f"⚠ Own XI constraint warning: {result.own_xi.note}")
+        diagnostics.append(("[yellow]⚠[/yellow]", f"[bold]XI constraint warning:[/bold] {result.own_xi.note}"))
     if result.opponent_forecast.predicted_xi.note:
-        diagnostics.append(
-            f"⚠ Opponent XI constraint warning: {result.opponent_forecast.predicted_xi.note}"
-        )
+        diagnostics.append((
+            "[yellow]⚠[/yellow]",
+            f"[bold]Opponent XI constraint warning:[/bold] {result.opponent_forecast.predicted_xi.note}"
+        ))
 
     if diagnostics:
-        console.print(Panel("\n\n".join(diagnostics), title="Diagnostics"))
+        console.print()
+        console.print(Rule("WHAT WENT WRONG", style="dim", align="left"))
+        for symbol, text in diagnostics:
+            console.print(f"  {symbol}  {text}")
+            console.print()
 
-    if log_calibration:
+    # ── Key Takeaways ────────────────────────────────────────────────────────
+    console.print()
+    console.print(Rule("KEY TAKEAWAYS", style="dim", align="left"))
+
+    # Largest error source
+    errors: list[tuple[float, str]] = []
+    if runs_for is not None:
+        pred_us = wp.expected_runs if actual_toss == "bat" else result.opponent_forecast.expected_score
+        errors.append((abs(runs_for - pred_us), f"batting model ({runs_for - pred_us:+.0f} runs)"))
+    if runs_against is not None:
+        pred_them = result.opponent_forecast.expected_score if actual_toss == "bat" else wp.expected_runs
+        errors.append((abs(runs_against - pred_them), f"bowling model ({runs_against - pred_them:+.0f} runs)"))
+    if errors:
+        errors.sort(reverse=True)
+        console.print(f"  • Largest error source: [bold]{errors[0][1]}[/bold]")
+
+    if not toss_match:
+        console.print(f"  • Toss call diverged from reality — review pitch/dew model inputs")
+
+    console.print(
+        f"  • Prediction: [bold]{wp.win_probability:.1%}[/bold]  →  "
+        f"Actual: {'[green]WIN[/green]' if won else '[red]LOSS[/red]'}"
+    )
+
+    if log_cal:
         state.add_calibration_point(wp.win_probability, actual_wp)
         console.print(
-            f"[dim]Calibration point logged: predicted={wp.win_probability:.3f}, "
+            f"\n  [dim]Calibration point logged: predicted={wp.win_probability:.3f}, "
             f"actual={actual_wp:.0f}[/dim]"
         )
 
+    console.print()
+    console.print(Rule(style="red"))
+
+
+# ---------------------------------------------------------------------------
+# Remaining commands (unchanged)
+# ---------------------------------------------------------------------------
 
 @app.command()
 def linkedin(
@@ -449,10 +717,7 @@ def history(
         )
 
     console.print(table)
-    console.print(
-        f"\n[dim]Full run IDs shown truncated. "
-        f"DB path: {StateStore().path}[/dim]"
-    )
+    console.print(f"\n[dim]DB path: {StateStore().path}[/dim]")
 
 
 @app.command(name="record-outcome")
@@ -469,6 +734,12 @@ def record_outcome(
     result_str = "[green]WIN[/green]" if won else "[red]LOSS[/red]"
     console.print(f"Outcome recorded: {result_str} for run {run_id[:8]}…")
     console.print("[dim]Platt scaler will use this on the next run.[/dim]")
+
+
+def _parse_date(s: str | None) -> Date | None:
+    if not s:
+        return None
+    return datetime.fromisoformat(s).date()
 
 
 if __name__ == "__main__":

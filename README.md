@@ -108,6 +108,32 @@ export ANTHROPIC_API_KEY=sk-ant-...
 
 ## Usage
 
+### Interactive mode
+
+Run `ipl-oracle` with no arguments for a guided prompt — the easiest way to get started:
+
+```bash
+ipl-oracle
+```
+
+You'll be asked to choose a mode, then provide team codes and a date:
+
+```
+─────────────────────── IPL ORACLE ───────────────────────
+
+  What would you like to do?
+
+   [1]  Pre-match strategy
+        Recommend XI, toss & win probability for an upcoming fixture
+
+   [2]  Post-match RCA
+        Analyse why a result differed from the oracle's prediction
+
+Mode [1/2]:
+```
+
+### Pre-match strategy (run)
+
 ```bash
 # Most common: just the team — everything else inferred
 ipl-oracle run --team RCB
@@ -121,49 +147,69 @@ ipl-oracle run --team RCB --no-narrative
 # Lock players in/out
 ipl-oracle run --team RCB --must-include rcb_kohli --must-exclude rcb_maxwell
 
+# Also emit a LinkedIn-style post
+ipl-oracle run --team RCB --linkedin
+```
+
+Output is a structured terminal report with four sections: **Fixture → Verdict → Recommended XI → Strategy Brief**.
+
+```
+──────────────── IPL ORACLE — PRE-MATCH STRATEGY REPORT ────────────────
+
+FIXTURE ─────────────────────────────────────────────────────────────────
+  RCB vs GT  ·  Narendra Modi Stadium  ·  2026-04-30
+  Protagonist: RCB  Opponent: GT
+
+VERDICT ─────────────────────────────────────────────────────────────────
+  Win Probability  82.9%  (95% CI 82.1% – 83.6%)
+  Expected Runs    202    (198 – 206)
+  Toss             BAT FIRST  (bat 82.9% vs bowl 66.7%)
+  Mode             Bayesian
+
+RECOMMENDED XI — RCB ───────────────────────────────────────────────────
+  #   Name              Role             Selection Reason
+  1   Virat Kohli       batter           top-of-order value despite matchup threat
+  ...
+
+STRATEGY BRIEF ─────────────────────────────────────────────────────────
+  → Bat first. Set win-prob (82.9%) > chase win-prob (66.7%)...
+```
+
+### Post-match RCA (retro)
+
+```bash
+# Auto-fetch actual result from Cricsheet (no manual input needed)
+ipl-oracle retro --team RCB --opponent GT \
+    --venue "Narendra Modi Stadium" --match-date 2026-04-30 \
+    --fetch-result
+
+# Manual entry
+ipl-oracle retro --team DC --opponent RCB \
+    --venue "Arun Jaitley Stadium" --match-date 2026-04-27 \
+    --actual-toss bowl --lost --runs-for 138 --runs-against 215
+```
+
+Output is a structured RCA report: **Match Summary → Prediction Accuracy → What Went Wrong → Key Takeaways**.
+The calibration point `(predicted, actual)` is automatically logged to improve future Platt-scaled win probabilities.
+
+### Other commands
+
+```bash
 # Inspect data
 ipl-oracle fixtures --team RCB
 ipl-oracle squad RCB
 ipl-oracle enrichment-team RCB
 ipl-oracle enrichment-match 2026-IPL-42
-ipl-oracle enrichment-team RCB --markdown
 
-# Emit a LinkedIn-style post (deterministic, no LLM key required)
-ipl-oracle linkedin --team RCB
-ipl-oracle run --team RCB --no-narrative --linkedin
-
-# Retrospective: compare what the oracle would have recommended against
-# the actual scorecard. Logs (predicted, actual) to the calibration store.
-ipl-oracle retro --team DC --opponent RCB \
-    --venue "Arun Jaitley Stadium" --match-date 2026-04-27 \
-    --actual-toss bowl --lost --runs-for 138 --runs-against 215
-
-# Review past runs (strategy mode, win prob, CI width, MC feedback delta)
+# Review past oracle runs
 ipl-oracle history --team RCB --last 20
 
-# After a match: record the actual result to improve Platt calibration
+# Record match outcome against a prior run (feeds Platt calibration)
 ipl-oracle record-outcome <run-id> --won
 ipl-oracle record-outcome <run-id> --lost
-```
 
-Sample output (truncated):
-
-```
-Fixture: RCB vs PBKS @ M Chinnaswamy Stadium (2026-04-15)
-
-Predicted PBKS XI:
- 1. Shreyas Iyer (batsman)
- 2. Prabhsimran Singh (wicket_keeper)
- ...
-
-Recommended XI:
- 1. Virat Kohli      (batsman)        top-of-order value despite matchup threat (4.2)
- 2. Phil Salt        (wicket_keeper)  wk slot — meets role minimum
- ...
-
-win prob: 56.3% (95% CI 52.1% – 60.4%)
-toss: bat — set win-prob 56.3% ≥ chase win-prob 53.1%; par 195 suggests posting first
-mode: deterministic
+# LinkedIn post (no LLM key required)
+ipl-oracle linkedin --team RCB
 ```
 
 ## Refreshing data
